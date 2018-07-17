@@ -24,7 +24,7 @@
             android:layout_marginTop="150dp">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/shelter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="0dp"
@@ -36,7 +36,7 @@
                 app:srcCompat="@drawable/homebutton" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/disaster_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
@@ -55,7 +55,7 @@
             android:layout_marginLeft="5dp">
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
@@ -67,7 +67,7 @@
                 app:srcCompat="@drawable/findbutton" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
