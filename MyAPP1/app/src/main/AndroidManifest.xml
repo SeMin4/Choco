@@ -19,6 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Shelter">
+
+        </activity>
+        <activity android:name=".Setting">
+
+        </activity>
+        <activity android:name=".Disater_message">
+
+        </activity>
+        <activity android:name=".Tips">
+
+        </activity>
     </application>
 
 </manifest>

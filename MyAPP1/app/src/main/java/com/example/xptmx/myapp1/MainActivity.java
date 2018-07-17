@@ -1,5 +1,6 @@
 package com.example.xptmx.myapp1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.app.FragmentManager;
 import android.app.Fragment;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +36,40 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
+
+        ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
+        ImageButton shelterButton =(ImageButton)findViewById(R.id.shelter);
+        ImageButton tipsButton = (ImageButton)findViewById(R.id.tips);
+        ImageButton settingButton = (ImageButton)findViewById(R.id.setting);
+
+        disaterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),Disater_message.class);
+                startActivity(intent);
+            }
+        });
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),Setting.class);
+                startActivity(intent);
+            }
+        });
+        shelterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),Shelter.class);
+                startActivity(intent);
+            }
+        });
+        tipsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),Tips.class);
+                startActivity(intent);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
