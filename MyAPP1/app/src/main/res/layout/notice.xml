@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/notice"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/home_normal" />
+    <TextView
+        android:id="@+id/notice_message"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="안녕하세요."
+        android:textSize="30sp"
+        android:gravity="center_vertical"
+        />
+
+</LinearLayout>
