@@ -13,7 +13,7 @@ public class Setting extends AppCompatActivity {
     protected void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
-        setContentView(R.layout.disater_message);
+        setContentView(R.layout.setting);
     }
 
 
