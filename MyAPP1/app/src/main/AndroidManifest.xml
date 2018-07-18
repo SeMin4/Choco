@@ -30,6 +30,9 @@
         <activity android:name=".Disater_message"></activity>
         <activity android:name=".Tips"></activity>
         <activity android:name=".Disaster_message_onClicked"></activity>
+        <activity android:name=".FirstLayout"></activity>
+        <activity android:name=".SecondLayout"></activity>
+
     </application>
 
 </manifest>

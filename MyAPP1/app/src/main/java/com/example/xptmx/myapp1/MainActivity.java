@@ -28,15 +28,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
         ImageButton shelterButton =(ImageButton)findViewById(R.id.shelter);
         ImageButton tipsButton = (ImageButton)findViewById(R.id.tips);
@@ -107,7 +98,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent =new Intent(getApplicationContext(),Setting.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -122,9 +114,13 @@ public class MainActivity extends AppCompatActivity
         FragmentManager manager = getFragmentManager();
 
         if (id == R.id.nav_first_layout) {
-            manager.beginTransaction().replace(R.id.content_main, new FirstLayout()).commit();
-        } else if (id == R.id.nav_second_layout) {
-            manager.beginTransaction().replace(R.id.content_main, new SecondLayout()).commit();
+              Intent intent =new Intent(getApplicationContext(),FirstLayout.class);
+                    startActivity(intent);
+        }
+
+        else if (id == R.id.nav_second_layout) {
+            Intent intent =new Intent(getApplicationContext(),SecondLayout.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

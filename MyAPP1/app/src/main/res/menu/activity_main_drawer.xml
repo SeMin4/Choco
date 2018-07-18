@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_first_layout"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="첫번째 화면" />
+            android:icon="@drawable/notification"
+            android:title="공지사항" />
         <item
             android:id="@+id/nav_second_layout"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="두번째 화면" />
+            android:icon="@drawable/play_security"
+            android:title="이용약관" />
     </group>
 
     <item android:title="Communicate">
@@ -19,11 +19,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="공유" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="보내기" />
         </menu>
     </item>
 
