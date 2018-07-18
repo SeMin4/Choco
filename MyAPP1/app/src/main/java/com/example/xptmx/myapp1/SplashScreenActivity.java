@@ -19,12 +19,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             .withTargetActivity(MainActivity.class)
             .withSplashTimeOut(1500)
 
-            .withBackgroundColor(Color.parseColor("#0E0F22"))
+            .withBackgroundColor(Color.parseColor("#0E0F23"))
             .withHeaderText("")
             .withFooterText("")
             .withBeforeLogoText("")
             .withAfterLogoText("")
-            .withLogo(R.drawable.centerhuman_2);
+            .withLogo(R.drawable.centerhuman_5);
 
         config.getHeaderTextView().setTextColor(Color.WHITE);
         config.getFooterTextView().setTextColor(Color.WHITE);
