@@ -15,7 +15,6 @@ package com.example.xptmx.myapp1;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Wrapper class representing POI flag types on map view.
  *
