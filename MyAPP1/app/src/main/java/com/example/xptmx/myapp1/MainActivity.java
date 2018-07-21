@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent intent = new Intent(getApplicationContext(), MyService.class);
+        startService(intent);
     }
 
     @Override
