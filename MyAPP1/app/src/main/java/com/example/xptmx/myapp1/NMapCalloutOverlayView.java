@@ -16,7 +16,6 @@ package com.example.xptmx.myapp1;
  * limitations under the License.
  */
 
-
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -174,7 +173,7 @@ public abstract class NMapCalloutOverlayView extends FrameLayout implements
     /**
      * Register a callback to be invoked when this callout is clicked
      *
-     * @param l the click listener to attach to this callout overlay
+     * I the click listener to attach to this callout overlay
      */
     @Override
     public void setOnClickListener(NMapCalloutOverlay.OnClickListener listener) {

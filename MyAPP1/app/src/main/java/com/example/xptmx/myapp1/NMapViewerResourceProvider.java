@@ -16,7 +16,6 @@ package com.example.xptmx.myapp1;
  * limitations under the License.
  */
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,7 +40,7 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
  */
 public class NMapViewerResourceProvider extends NMapResourceProvider implements
         NMapCalloutCustomOldOverlay.ResourceProvider {
-    private static final String LOG_TAG = "NMapViewerResourceProvi";
+    private static final String LOG_TAG = "NMapViewerResourceProvㄷ";
     private static final boolean DEBUG = false;
 
     private static final Bitmap.Config BITMAP_CONFIG_DEFAULT = Bitmap.Config.ARGB_8888;
@@ -391,8 +390,8 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
             NMapPOIitem poiItem = (NMapPOIitem)item;
 
             if (poiItem.showRightButton()) {
-                /*임의 수정*/
-                return "abc";
+
+                return mContext.getResources().getString(R.string.str_done);
             }
         }
 
