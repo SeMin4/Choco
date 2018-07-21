@@ -1,14 +1,17 @@
 package com.example.xptmx.myapp1;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,9 +82,13 @@ public class Shelter extends NMapActivity{
 
 
 
-    @Override
+
+
+
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         //처음에 맵을 생성화는 과정
         if (USE_XML_LAYOUT) {
             setContentView(R.layout.main);
@@ -133,10 +140,15 @@ public class Shelter extends NMapActivity{
         mMapCompassManager = new NMapCompassManager(this);
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
+
+
+         startMyLocation();
+
         //testPathDataOverlay ();
         //testPathPOIdataOverlay();
       //  testPOIdataOverlay();
-        testFloatingPOIdataOverlay();
+       // testFloatingPOIdataOverlay();
+
 
 
 
@@ -404,6 +416,7 @@ public class Shelter extends NMapActivity{
         // set POI data
         NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
         poiData.beginPOIdata(1);
+
         NMapPOIitem item = poiData.addPOIitem(null, "Touch & Drag to Move", marker1, 0);
         if (item != null) {
             // initialize location to the center of the map view.
@@ -461,6 +474,7 @@ public class Shelter extends NMapActivity{
     }
 
     private void startMyLocation() {
+
 
         if (mMyLocationOverlay != null) {
             if (!mOverlayManager.hasOverlay(mMyLocationOverlay)) {
@@ -698,7 +712,6 @@ public class Shelter extends NMapActivity{
     };
     /* MyLocation Listener */
     private final NMapLocationManager.OnLocationChangeListener onMyLocationChangeListener = new NMapLocationManager.OnLocationChangeListener() {
-
         @Override
         public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
 
@@ -708,23 +721,20 @@ public class Shelter extends NMapActivity{
 
             return true;
         }
-
         @Override
         public void onLocationUpdateTimeout(NMapLocationManager locationManager) {
-
-            // stop location updating
-            //			Runnable runnable = new Runnable() {
-            //				public void run() {
-            //					stopMyLocation();
-            //				}
-            //			};
-            //			runnable.run();
+            //stop location updating
+            			Runnable runnable = new Runnable() {
+            				public void run() {
+            					stopMyLocation();
+            				}
+            		};
+            		runnable.run();
 
             Toast.makeText(Shelter.this, "Your current location is temporarily unavailable.", Toast.LENGTH_LONG).show();
         }
-
         @Override
-        public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
+              public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
 
             Toast.makeText(Shelter.this, "Your current location is unavailable area.", Toast.LENGTH_LONG).show();
 
@@ -896,6 +906,30 @@ public class Shelter extends NMapActivity{
             }
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
+    }
+    //맵 권한 요구 추가
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+    public boolean checkLocationPermission()
+    {
+        String permission = "android.permission.ACCESS_FINE_LOCATION";
+        int res = this.checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
     }
 
 
