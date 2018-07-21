@@ -5,7 +5,7 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="170dp"
+    android:layout_marginTop="210dp"
     android:background="#00ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
@@ -20,21 +20,24 @@
         android:layout_margin="0dp">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/disaster_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:layout_marginStart="0dp"
 
-                android:layout_marginTop="0dp"
-                android:background="@drawable/message_normal2"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="155dp"
+                android:maxWidth="155dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/messagebutton" />
         </TableRow>
 
@@ -46,13 +49,19 @@
                 android:id="@+id/shelter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/shelter_normal2"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="275dp"
+                android:maxWidth="275dp"
+                android:paddingBottom="10dp"
+
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/homebutton" />
 
         </TableRow>
@@ -65,9 +74,14 @@
                 android:id="@+id/tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/find_normal2"
+                android:layout_margin="0dp"
+                android:layout_marginBottom="0dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="175dp"
+                android:maxWidth="175dp"
+                android:scaleType="fitCenter"
+
                 app:srcCompat="@drawable/findbutton" />
         </TableRow>
 
@@ -83,9 +97,13 @@
                 android:layout_marginBottom="0dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:background="#00ffffff"
-                android:paddingLeft="12dp"
-                android:paddingTop="5dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="170dp"
+                android:maxWidth="115dp"
+
+                android:paddingTop="10dp"
+                android:scaleType="fitStart"
                 app:srcCompat="@drawable/settingbutton" />
         </RelativeLayout>
 
