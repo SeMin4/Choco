@@ -28,7 +28,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
 
-
     // Add library
     implementation 'gr.pantrif:easy-android-splash-screen:0.0.1'
 }
