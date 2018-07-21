@@ -87,8 +87,9 @@ public class Shelter extends NMapActivity{
 
         @Override
     public void onCreate(Bundle savedInstanceState) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
         //처음에 맵을 생성화는 과정
         if (USE_XML_LAYOUT) {
             setContentView(R.layout.main);
@@ -443,53 +444,35 @@ public class Shelter extends NMapActivity{
             mFloatingPOIdataOverlay = poiDataOverlay;
         }
     }
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
     }
-
     @Override
     protected void onStop() {
-
         stopMyLocation();
-
         super.onStop();
     }
-
     @Override
     protected void onDestroy() {
-
         // save map view state such as map center position and zoom level.
         saveInstanceState();
-
         super.onDestroy();
     }
-
     private void startMyLocation() {
-
-
         if (mMyLocationOverlay != null) {
             if (!mOverlayManager.hasOverlay(mMyLocationOverlay)) {
                 mOverlayManager.addOverlay(mMyLocationOverlay);
             }
-
             if (mMapLocationManager.isMyLocationEnabled()) {
-
                 if (!mMapView.isAutoRotateEnabled()) {
                     mMyLocationOverlay.setCompassHeadingVisible(true);
-
                     mMapCompassManager.enableCompass();
-
                     mMapView.setAutoRotateEnabled(true, false);
-
                     mMapContainerView.requestLayout();
                 } else {
                     stopMyLocation();
