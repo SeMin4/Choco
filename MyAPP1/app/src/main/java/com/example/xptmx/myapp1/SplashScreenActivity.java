@@ -1,7 +1,9 @@
 package com.example.xptmx.myapp1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -10,28 +12,21 @@ import gr.net.maroulis.library.EasySplashScreen;
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle bundle)
-    {
-        super.onCreate(bundle);
+    protected void onCreate(Bundle savedInstanceSate) {
 
-        EasySplashScreen config = new EasySplashScreen(SplashScreenActivity.this)
-            .withFullScreen()
-            .withTargetActivity(MainActivity.class)
-            .withSplashTimeOut(1500)
+        super.onCreate(savedInstanceSate);
+        setContentView(R.layout.intro);
 
-            .withBackgroundColor(Color.parseColor("#0E0F23"))
-            .withHeaderText("")
-            .withFooterText("")
-            .withBeforeLogoText("")
-            .withAfterLogoText("")
-            .withLogo(R.drawable.centerhuman_5);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
 
-        config.getHeaderTextView().setTextColor(Color.WHITE);
-        config.getFooterTextView().setTextColor(Color.WHITE);
-        config.getBeforeLogoTextView().setTextColor(Color.WHITE);
-        config.getAfterLogoTextView().setTextColor(Color.WHITE);
-
-        View easySplashScreen = config.create();
-        setContentView(easySplashScreen);
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 1000);
     }
 }
+
