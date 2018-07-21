@@ -87,7 +87,7 @@ public class Shelter extends NMapActivity{
 
         @Override
     public void onCreate(Bundle savedInstanceState) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
         super.onCreate(savedInstanceState);
 
         //처음에 맵을 생성화는 과정
@@ -142,7 +142,7 @@ public class Shelter extends NMapActivity{
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 
-
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
          startMyLocation();
 
         //testPathDataOverlay ();
