@@ -2,6 +2,7 @@ package com.example.xptmx.myapp1;
 
 import android.app.Notification;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
@@ -72,10 +74,19 @@ public class MyService extends Service {
             intent.putExtra("md101_sn", my_list_item.getMd101_sn());
             intent.putExtra("msg", my_list_item.getContent());
             PendingIntent pendingIntent = PendingIntent.getActivity(MyService.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder notificationBuilder;
 
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(getApplicationContext())
-                            .setSmallIcon(R.mipmap.ic_launcher)
+            if (Build.VERSION.SDK_INT >= 26) {
+                NotificationChannel mChannel = new NotificationChannel("myapp", "myapp", NotificationManager.IMPORTANCE_DEFAULT);
+                Notifi_M.createNotificationChannel(mChannel);
+                notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),mChannel.getId());
+                mChannel.enableLights(true);
+                mChannel.enableVibration(true);
+            } else
+            {
+                notificationBuilder=new NotificationCompat.Builder(getApplicationContext());
+            }
+            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(my_list_item.getCreate_date())
                             .setContentText(my_list_item.getContent())
                             .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -86,14 +97,14 @@ public class MyService extends Service {
                             .setContentIntent(pendingIntent);
 
             tts.speak(my_list_item.getContent(), TextToSpeech.QUEUE_ADD, null);
-            tts.speak("7월 22일 테스트 버전", TextToSpeech.QUEUE_ADD, null);
+            //tts.speak("7월 22일 테스트 버전", TextToSpeech.QUEUE_ADD, null);
             //tts.speak(my_list_item.getContent(), TextToSpeech.QUEUE_ADD, null);
 
-            Notifi_M.notify(777, mBuilder.build());
+            Notifi_M.notify(777, notificationBuilder.build());
 
-            mp.start();
+            //mp.start();
             //토스트 띄우기
-            Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
         }
     }
 
