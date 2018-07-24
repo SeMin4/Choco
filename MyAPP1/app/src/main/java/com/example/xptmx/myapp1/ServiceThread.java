@@ -139,7 +139,7 @@ public class ServiceThread extends Thread {
             handler.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
 
             try{
-                Thread.sleep(30000); //10초씩 쉰다.
+                Thread.sleep(60000); //10초씩 쉰다.
             }catch (Exception e) {}
         }
     }

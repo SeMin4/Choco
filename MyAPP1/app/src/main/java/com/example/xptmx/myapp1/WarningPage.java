@@ -46,7 +46,7 @@ public class WarningPage extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tts.stop();
+                tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
