@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //위치정보액세스에 관한 권한 추가
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

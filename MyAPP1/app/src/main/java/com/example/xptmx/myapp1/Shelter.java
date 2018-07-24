@@ -141,9 +141,12 @@ public class Shelter extends NMapActivity{
         mMapCompassManager = new NMapCompassManager(this);
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
+        mMapView.setAutoRotateEnabled(true,true);
+        if(mMapView.isAutoRotateEnabled() == true)
+        {
+            startMyLocation();
+        }
 
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-         startMyLocation();
 
         //testPathDataOverlay ();
         //testPathPOIdataOverlay();
@@ -162,7 +165,6 @@ public class Shelter extends NMapActivity{
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         int viewMode = mMapController.getMapViewMode();
@@ -179,7 +181,6 @@ public class Shelter extends NMapActivity{
 
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -309,8 +310,6 @@ public class Shelter extends NMapActivity{
 
         }
     }
-
-
     //출발 도착 오버레이 찍는 메서드
     private void testPathPOIdataOverlay() {
 
@@ -484,7 +483,7 @@ public class Shelter extends NMapActivity{
                 if (!isMyLocationEnabled) {
                     Toast.makeText(Shelter.this, "Please enable a My Location source in system settings",
                             Toast.LENGTH_LONG).show();
-
+                    //셋팅화면으로 되돌리기 위한 인텐트 생성
                     Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(goToSettings);
 
@@ -504,7 +503,7 @@ public class Shelter extends NMapActivity{
 
                 mMapView.setAutoRotateEnabled(false, false);
 
-                // mMapContainerView.requestLayout();
+                mMapContainerView.requestLayout();
             }
         }
     }
