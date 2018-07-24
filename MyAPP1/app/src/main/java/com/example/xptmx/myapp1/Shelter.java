@@ -43,6 +43,11 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Shelter extends NMapActivity{
 
     private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(128.6109119, 35.8883161);
@@ -106,7 +111,7 @@ public class Shelter extends NMapActivity{
             // set the activity content to the parent view
             setContentView(mMapContainerView);
         }
-        mMapView.setClientId(CLIENT_ID);
+         mMapView.setClientId(CLIENT_ID);
 
     // initialize map view
         mMapView.setClickable(true);
@@ -122,6 +127,7 @@ public class Shelter extends NMapActivity{
         mMapView.setOnMapViewDelegate(onMapViewTouchDelegate);
         //mmapController 변수 선언
         mMapController = mMapView.getMapController();
+        mMapController.setZoomLevelConstraint(11,14);
         //내장 컨트롤러 사용
         mMapView.setBuiltInZoomControls(true, null);
         //Location 매니저와 Resource 공급자를 생성
@@ -141,16 +147,35 @@ public class Shelter extends NMapActivity{
         mMapCompassManager = new NMapCompassManager(this);
         // create my location overlay
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
-        mMapView.setAutoRotateEnabled(true,true);
-        if(mMapView.isAutoRotateEnabled() == true)
-        {
-            startMyLocation();
-        }
 
+        startMyLocation();
+
+
+        InputStream inputStream = getResources().openRawResource(R.raw.earthquake_shelter);
+
+            Scanner scanner = new Scanner(inputStream);
+            ArrayList<EarthquakeShelter> list = new ArrayList<>();
+
+            scanner.nextLine();
+            while(scanner.hasNextLine()){
+                String[] data = scanner.nextLine().split(",");
+                try {
+                    list.add(new EarthquakeShelter(data[2], Double.parseDouble(data[6]), Double.parseDouble(data[5])));
+                }catch(NumberFormatException e){
+                    continue;
+                }catch(ArrayIndexOutOfBoundsException e){
+                    continue;
+                }
+            }
+            scanner.close();
+
+            for(EarthquakeShelter v : list){
+                System.out.println(v.toString());
+            }
 
         //testPathDataOverlay ();
-        //testPathPOIdataOverlay();
-      //  testPOIdataOverlay();
+       // testPathPOIdataOverlay();
+      testPOIdataOverlay(list);
        // testFloatingPOIdataOverlay();
 
 
@@ -233,7 +258,7 @@ public class Shelter extends NMapActivity{
                 mOverlayManager.clearOverlays();
 
                 // add POI data overlay
-                testPOIdataOverlay();
+                //testPOIdataOverlay();
                 return true;
 
             case R.id.action_path_data:
@@ -383,18 +408,26 @@ public class Shelter extends NMapActivity{
         }
     }
     //자기가 원하는 지점에 마커 표시후 데이터 입력
-    private void testPOIdataOverlay() {
+    private void testPOIdataOverlay(ArrayList<EarthquakeShelter> list) {
 
         // Markers for POI item
         int markerId = NMapPOIflagType.PIN;
-
+        int id = 0;
         // set POI data
-        NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
-        poiData.beginPOIdata(2);
-        NMapPOIitem item = poiData.addPOIitem(127.0630205, 37.5091300, "Pizza 777-111", markerId, 0);
-        item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
-        poiData.addPOIitem(127.061, 37.51, "Pizza 123-456", markerId, 0);
-        poiData.endPOIdata();
+        NMapPOIdata poiData = new NMapPOIdata(9589, mMapViewerResourceProvider);
+
+
+        NMapPOIitem item= poiData.addPOIitem(127.0630205, 37.5091300, "Pizza 777-111", markerId, 0);
+        for(EarthquakeShelter v : list)
+        {
+            poiData.beginPOIdata(9589);
+            poiData.addPOIitem(v.getLongitude(),v.getLatitude(), v.getName(), markerId,id);
+            id++;
+            poiData.endPOIdata();
+        }
+       // item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
+
+
 
         // create POI data overlay
         NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
@@ -403,10 +436,10 @@ public class Shelter extends NMapActivity{
         poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
 
         // select an item
-        poiDataOverlay.selectPOIitem(0, true);
+       // poiDataOverlay.selectPOIitem(0, true);
 
         // show all POI data
-        //poiDataOverlay.showAllPOIdata(0);
+       poiDataOverlay.showAllPOIdata(0);
     }
     //자기가 원하는 지점에 마커 찍으면 주소 도출
     private void testFloatingPOIdataOverlay() {
