@@ -32,11 +32,11 @@
             android:layout_height="match_parent">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:checked="true"
+                android:checked="false"
                 android:text="소리" />
 
             <RadioButton
@@ -87,6 +87,7 @@
         tools:layout_editor_absoluteY="465dp" />
 
     <RadioGroup
+        android:id="@+id/radiogroup2"
         android:layout_width="214dp"
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
