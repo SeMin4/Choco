@@ -39,9 +39,9 @@ public class Setting extends AppCompatActivity {
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         RadioGroup group = (RadioGroup) findViewById(R.id.radioGroup);
-        RadioButton a = (RadioButton) findViewById(R.id.radioButton);
-        RadioButton b = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton c = (RadioButton) findViewById(R.id.radioButton3);
+        RadioButton aButton = (RadioButton) findViewById(R.id.radioButton1);
+        RadioButton bButton = (RadioButton) findViewById(R.id.radioButton2);
+        RadioButton cButton = (RadioButton) findViewById(R.id.radioButton3);
         aswitch = (Switch) findViewById(R.id.switch1);
         bswitch = (Switch) findViewById(R.id.switch2);
 
@@ -51,31 +51,35 @@ public class Setting extends AppCompatActivity {
                 if(b){
                     vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
                 }
-                else{
+                else if(false){
                     vibrator.cancel();
                 }
             }
         });
         bswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean is) {
-                if(is){
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked){
                     m.start();
                 }
-                else{
+                else if(false){
                     m.stop();
 
                 }
             }
         });
 
-        Boolean aa = pref.getBoolean("a", false);
-        Boolean bb = pref.getBoolean("b", false);
-        Boolean cc = pref.getBoolean("c", false);
+        Boolean aa = pref.getBoolean("aButton", false);
+        Boolean bb = pref.getBoolean("bButton", false);
+        Boolean cc = pref.getBoolean("cButton", false);
+        Boolean dd = pref.getBoolean("aswitch", false);
+        Boolean ee = pref.getBoolean("bswitch", false);
 
-        a.setChecked(aa);
-        b.setChecked(bb);
-        c.setChecked(cc);
+        aButton.setChecked(aa);
+        bButton.setChecked(bb);
+        cButton.setChecked(cc);
+        aswitch.setChecked(dd);
+        bswitch.setChecked(ee);
 
         Button button = (Button) findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +96,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
-                    case R.id.radioButton:
+                    case R.id.radioButton1:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         break;
                     case R.id.radioButton2:
@@ -111,13 +115,17 @@ public class Setting extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
-        RadioButton a = (RadioButton) findViewById(R.id.radioButton);
-        RadioButton b = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton c = (RadioButton) findViewById(R.id.radioButton3);
+        RadioButton aButton = (RadioButton) findViewById(R.id.radioButton1);
+        RadioButton bButton = (RadioButton) findViewById(R.id.radioButton2);
+        RadioButton cButton = (RadioButton) findViewById(R.id.radioButton3);
+        aswitch = (Switch) findViewById(R.id.switch1);
+        bswitch = (Switch) findViewById(R.id.switch2);
 
-        editor.putBoolean("a", a.isChecked());
-        editor.putBoolean("b", b.isChecked());
-        editor.putBoolean("c", c.isChecked());
+        editor.putBoolean("aButton", aButton.isChecked());
+        editor.putBoolean("bButton", bButton.isChecked());
+        editor.putBoolean("cButton", cButton.isChecked());
+        editor.putBoolean("aswitch", aswitch.isChecked());
+        editor.putBoolean("bswitch", bswitch.isChecked());
 
         editor.commit();
     }
