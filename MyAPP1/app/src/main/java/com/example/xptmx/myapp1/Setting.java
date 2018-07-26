@@ -129,9 +129,9 @@ public class Setting extends AppCompatActivity {
 
         editor.commit();
 
-        Switch cSwitch=(Switch)findViewById(R.id.alarmSwitch);
+        Switch aSwitch=(Switch)findViewById(R.id.alarmSwitch);
 
-        cSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b==true)
