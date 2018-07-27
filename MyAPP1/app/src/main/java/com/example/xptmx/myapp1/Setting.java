@@ -26,14 +26,13 @@ import android.widget.Switch;
 
 public class Setting extends AppCompatActivity {
 
-    Switch aswitch, bswitch;
-    AudioManager audioManager;
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.setting);
 
-        final MediaPlayer m = MediaPlayer.create(this, R.raw.t);
+        final AudioManager audioManager;
+        final MediaPlayer m = MediaPlayer.create(this, R.raw.mymusic);
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -41,17 +40,15 @@ public class Setting extends AppCompatActivity {
         RadioGroup group = (RadioGroup) findViewById(R.id.radioGroup);
         RadioButton aButton = (RadioButton) findViewById(R.id.radioButton1);
         RadioButton bButton = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton cButton = (RadioButton) findViewById(R.id.radioButton3);
-        aswitch = (Switch) findViewById(R.id.switch1);
-        bswitch = (Switch) findViewById(R.id.switch2);
+        Switch aswitch = (Switch) findViewById(R.id.switch1);
+        Switch bswitch = (Switch) findViewById(R.id.switch2);
 
         aswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    vibrator.vibrate(new long[]{100,1000,100,500,100,500,100,1000},0);
-                }
-                else if(false){
+                if (b) {
+                    vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                } else {
                     vibrator.cancel();
                 }
             }
@@ -59,10 +56,9 @@ public class Setting extends AppCompatActivity {
         bswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if(checked){
+                if (checked) {
                     m.start();
-                }
-                else if(false){
+                } else {
                     m.stop();
 
                 }
@@ -71,15 +67,9 @@ public class Setting extends AppCompatActivity {
 
         Boolean aa = pref.getBoolean("aButton", false);
         Boolean bb = pref.getBoolean("bButton", false);
-        Boolean cc = pref.getBoolean("cButton", false);
-        Boolean dd = pref.getBoolean("aswitch", false);
-        Boolean ee = pref.getBoolean("bswitch", false);
 
         aButton.setChecked(aa);
         bButton.setChecked(bb);
-        cButton.setChecked(cc);
-        aswitch.setChecked(dd);
-        bswitch.setChecked(ee);
 
         Button button = (Button) findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
@@ -95,21 +85,45 @@ public class Setting extends AppCompatActivity {
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.radioButton1:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        break;
-                    case R.id.radioButton2:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                        break;
-                    case R.id.radioButton3:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        break;
-                }
+
+                    if(audioManager.getRingerMode() == audioManager.RINGER_MODE_NORMAL) {
+                        if(i == R.id.radioButton1)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        else if(i== R.id.radioButton2)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    }
+                    else if(audioManager.getRingerMode() == audioManager.RINGER_MODE_VIBRATE) {
+                        if (i == R.id.radioButton1)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        else if (i == R.id.radioButton2)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    }
+                    else if(audioManager.getRingerMode() == audioManager.RINGER_MODE_SILENT) {
+                        if (i == R.id.radioButton1)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        else if (i == R.id.radioButton2)
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    }
             }
         });
 
+
+        Switch cSwitch = (Switch) findViewById(R.id.alarmSwitch);
+
+        cSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b == true) {
+                    Intent intent = new Intent(getApplicationContext(), MyService.class);
+                    startService(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), MyService.class);
+                    stopService(intent);
+                }
+            }
+        });
     }
+
     public void onStop() {
         super.onStop();
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
@@ -117,16 +131,12 @@ public class Setting extends AppCompatActivity {
 
         RadioButton aButton = (RadioButton) findViewById(R.id.radioButton1);
         RadioButton bButton = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton cButton = (RadioButton) findViewById(R.id.radioButton3);
-        aswitch = (Switch) findViewById(R.id.switch1);
-        bswitch = (Switch) findViewById(R.id.switch2);
 
         editor.putBoolean("aButton", aButton.isChecked());
         editor.putBoolean("bButton", bButton.isChecked());
-        editor.putBoolean("cButton", cButton.isChecked());
-        editor.putBoolean("aswitch", aswitch.isChecked());
-        editor.putBoolean("bswitch", bswitch.isChecked());
 
         editor.commit();
     }
 }
+
+

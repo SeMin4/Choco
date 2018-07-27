@@ -1,9 +1,11 @@
 package com.example.xptmx.myapp1;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -23,24 +25,50 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private Handler mHandler;
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        //위치정보액세스에 관한 권한 추가
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
         ImageButton shelterButton =(ImageButton)findViewById(R.id.shelter);
         ImageButton tipsButton = (ImageButton)findViewById(R.id.tips);
         ImageButton settingButton = (ImageButton)findViewById(R.id.setting);
-
         disaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mHandler = new Handler();
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mProgressDialog = ProgressDialog.show(MainActivity.this,"",
+                                "잠시만 기다려 주세요.",true);
+                        mHandler.postDelayed( new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                try
+                                {
+                                    if (mProgressDialog!=null&&mProgressDialog.isShowing()){
+                                        mProgressDialog.dismiss();
+                                    }
+                                }
+                                catch ( Exception e )
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 3000);
+                    }
+                } );
                 Intent intent =new Intent(getApplicationContext(),Disater_message.class);
                 startActivity(intent);
             }
@@ -55,8 +83,36 @@ public class MainActivity extends AppCompatActivity
         shelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mHandler = new Handler();
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        mProgressDialog = ProgressDialog.show(MainActivity.this,"",
+                                "잠시만 기다려 주세요.",true);
+                        mHandler.postDelayed( new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                try
+                                {
+                                    if (mProgressDialog!=null&&mProgressDialog.isShowing()){
+                                        mProgressDialog.dismiss();
+                                    }
+                                }
+                                catch ( Exception e )
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 3000);
+                    }
+                } );
                 Intent intent =new Intent(getApplicationContext(),Shelter.class);
                 startActivity(intent);
+
             }
         });
         tipsButton.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +131,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent intent = new Intent(getApplicationContext(), MyService.class);
+        startService(intent);
     }
 
     @Override
@@ -136,5 +195,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }

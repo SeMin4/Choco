@@ -61,7 +61,7 @@ public class Disater_message extends AppCompatActivity{
                             if (parser.getName().equals("location_name")) { //name 만나면 내용을 받을수 있게 하자
                                 inLocation_name = true;
                             }
-                            if (parser.getName().equals("md101_sn")) { //mapy 만나면 내용을 받을수 있게 하자
+                            if (parser.getName().equals("md101_sn")) { //md101 만나면 내용을 받을수 있게 하자
                                 inMd101_sn = true;
                             }
                             if (parser.getName().equals("msg")) { //msg 만나면 내용을 받을수 있게 하자

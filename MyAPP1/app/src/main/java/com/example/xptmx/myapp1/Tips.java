@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class Tips extends AppCompatActivity {
+public class Tips extends AppCompatActivity{
     @Override
-    protected void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle)
+    {
         super.onCreate(bundle);
         setContentView(R.layout.tips);
 
@@ -78,7 +79,5 @@ public class Tips extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
-
