@@ -147,7 +147,9 @@
             android:checked="true"
             android:text="알림"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="13dp"
+            android:layout_alignParentRight="true" />
     </LinearLayout>
 
 </RelativeLayout>

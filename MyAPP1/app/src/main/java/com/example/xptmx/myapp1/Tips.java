@@ -16,16 +16,6 @@ public class Tips extends AppCompatActivity{
         super.onCreate(bundle);
         setContentView(R.layout.tips);
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-        });
-
         ImageButton button1 = (ImageButton) findViewById(R.id.imageButton2);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
