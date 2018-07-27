@@ -42,7 +42,7 @@ public class WarningPage extends AppCompatActivity {
             }
         });
         tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-        Button btn2 = (Button) findViewById(R.id.stop_speek_button);
+        Button btn2 = (Button) findViewById(R.id.start_speek_button);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +56,14 @@ public class WarningPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-                //tts.stop();
+            }
+        });
+
+        Button btn3=(Button)findViewById(R.id.light_off_button);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UtilFlash.flash_off();
             }
         });
 
