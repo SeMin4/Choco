@@ -152,6 +152,8 @@ public class Shelter extends NMapActivity{
         startMyLocation();
 
 
+
+
         InputStream inputStream = getResources().openRawResource(R.raw.earthquake_shelter);
 
             Scanner scanner = new Scanner(inputStream);

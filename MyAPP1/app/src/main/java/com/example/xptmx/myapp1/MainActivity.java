@@ -33,21 +33,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         //위치정보액세스에 관한 권한 추가
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
         ImageButton shelterButton =(ImageButton)findViewById(R.id.shelter);
         ImageButton tipsButton = (ImageButton)findViewById(R.id.tips);
         ImageButton settingButton = (ImageButton)findViewById(R.id.setting);
-
         disaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mHandler = new Handler();
-
                 runOnUiThread(new Runnable()
                 {
                     @Override
@@ -89,7 +84,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mHandler = new Handler();
-
                 runOnUiThread(new Runnable()
                 {
                     @Override
