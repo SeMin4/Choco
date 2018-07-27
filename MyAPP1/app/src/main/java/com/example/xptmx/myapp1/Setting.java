@@ -32,7 +32,7 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.setting);
 
         final AudioManager audioManager;
-        final MediaPlayer m = MediaPlayer.create(this, R.raw.mymusic);
+        final MediaPlayer m = MediaPlayer.create(this, R.raw.aa);
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -71,39 +71,18 @@ public class Setting extends AppCompatActivity {
         aButton.setChecked(aa);
         bButton.setChecked(bb);
 
-        Button button = (Button) findViewById(R.id.button4);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-        });
-
-
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.radioButton1:
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        break;
+                    case R.id.radioButton2:
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                        break;
 
-                    if(audioManager.getRingerMode() == audioManager.RINGER_MODE_NORMAL) {
-                        if(i == R.id.radioButton1)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        else if(i== R.id.radioButton2)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    }
-                    else if(audioManager.getRingerMode() == audioManager.RINGER_MODE_VIBRATE) {
-                        if (i == R.id.radioButton1)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        else if (i == R.id.radioButton2)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    }
-                    else if(audioManager.getRingerMode() == audioManager.RINGER_MODE_SILENT) {
-                        if (i == R.id.radioButton1)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        else if (i == R.id.radioButton2)
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    }
+                }
             }
         });
 

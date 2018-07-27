@@ -116,7 +116,7 @@ public class MyService extends Service {
         mp.stop();
         Log.d("test", "서비스의 onDestroy");
 
-        if (tts != null) {
+            if (tts != null) {
             tts.stop();
             tts.shutdown();
             tts = null;
