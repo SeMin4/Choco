@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -32,18 +34,24 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //위치정보액세스에 관한 권한 추가
-        //ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA}, 1);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
         ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
         ImageButton shelterButton =(ImageButton)findViewById(R.id.shelter);
         ImageButton tipsButton = (ImageButton)findViewById(R.id.tips);
         ImageButton settingButton = (ImageButton)findViewById(R.id.setting);
+
+
         disaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mHandler = new Handler();
+
                 runOnUiThread(new Runnable()
                 {
                     @Override
@@ -85,6 +93,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 mHandler = new Handler();
+
                 runOnUiThread(new Runnable()
                 {
                     @Override
@@ -102,26 +111,26 @@ public class MainActivity extends AppCompatActivity
                                     if (mProgressDialog!=null&&mProgressDialog.isShowing()){
                                         mProgressDialog.dismiss();
                                     }
-                                }
+    }
                                 catch ( Exception e )
-                                {
-                                    e.printStackTrace();
-                                }
-                            }
+    {
+        e.printStackTrace();
+    }
+}
                         }, 3000);
-                    }
-                } );
-                Intent intent =new Intent(getApplicationContext(),Shelter.class);
-                startActivity(intent);
+                                }
+                                } );
+                                Intent intent =new Intent(getApplicationContext(),Shelter.class);
+        startActivity(intent);
 
-            }
+        }
         });
         tipsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(getApplicationContext(),Tips.class);
-                startActivity(intent);
-            }
+@Override
+public void onClick(View view) {
+        Intent intent =new Intent(getApplicationContext(),Tips.class);
+        startActivity(intent);
+        }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,6 +141,38 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*BottomNavigationView bottomNavigation=(BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        return true;
+                    case R.id.navigation_shelter:
+                        Intent intent1=new Intent(MainActivity.this,Shelter.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.navigation_message:
+                        Intent intent2=new Intent(MainActivity.this,Disater_message.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.navigation_tips:
+                        Intent intent3=new Intent(MainActivity.this,Tips.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.navigation_setting:
+                        Intent intent4=new Intent(MainActivity.this,Setting.class);
+                        startActivity(intent4);
+                         return true;
+                }
+                return false;
+            }
+        });
+
+        Menu menu=bottomNavigation.getMenu();
+        MenuItem menuItem=menu.getItem(3);
+        menuItem.setChecked(true);*/
 
         Intent intent = new Intent(getApplicationContext(), MyService.class);
         startService(intent);

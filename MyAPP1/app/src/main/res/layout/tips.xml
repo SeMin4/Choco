@@ -3,28 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-10dp"
-        android:layout_marginTop="-27dp"
-        app:srcCompat="@drawable/tip_title2" />
+        android:layout_marginTop="70dp"
+        android:adjustViewBounds="true"
+        android:background="#00FFFFFF"
+        android:maxHeight="220dp"
+        android:maxWidth="220dp"
+        android:paddingBottom="10dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/tips_title" />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent">
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="160dp"
             android:gravity="center_horizontal">
 
             <ImageButton
@@ -35,8 +37,8 @@
                 android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/firebutton" />
@@ -48,8 +50,8 @@
                 android:layout_marginRight="10dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/earthquakebutton" />
@@ -68,8 +70,8 @@
                 android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/hotbutton" />
@@ -81,8 +83,8 @@
                 android:layout_marginRight="10dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/thunderbutton" />
@@ -100,8 +102,8 @@
                 android:layout_marginRight="30dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/snowingbutton" />
@@ -113,12 +115,28 @@
                 android:layout_marginRight="10dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
-                android:maxHeight="140dp"
-                android:maxWidth="140dp"
+                android:maxHeight="120dp"
+                android:maxWidth="120dp"
                 android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/tsunamibutton" />
         </TableRow>
 
     </TableLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
 </RelativeLayout>

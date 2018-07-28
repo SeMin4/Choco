@@ -1,6 +1,5 @@
 package com.example.xptmx.myapp1;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,16 +8,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -54,6 +50,7 @@ public class MyService extends Service {
         myServiceHandler handler = new myServiceHandler();
         thread = new ServiceThread(handler);
         thread.start();
+        Setting.setHandler(handler);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -84,7 +81,6 @@ public class MyService extends Service {
                 NotificationChannel mChannel = new NotificationChannel("myapp", "myapp", NotificationManager.IMPORTANCE_DEFAULT);
                 Notifi_M.createNotificationChannel(mChannel);
                 notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),mChannel.getId());
-                mChannel.enableLights(true);
                 mChannel.enableVibration(true);
             } else
             {
@@ -106,11 +102,10 @@ public class MyService extends Service {
 
             Notifi_M.notify(777, notificationBuilder.build());
 
+            UtilFlash.flash_on();
             //mp.start();
             //토스트 띄우기
             //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
-
-                UtilFlash.flash_on();
         }
     }
 

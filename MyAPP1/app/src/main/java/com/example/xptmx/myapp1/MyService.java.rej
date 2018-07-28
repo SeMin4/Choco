@@ -1,0 +1,9 @@
+diff a/MyAPP1/app/src/main/java/com/example/xptmx/myapp1/MyService.java b/MyAPP1/app/src/main/java/com/example/xptmx/myapp1/MyService.java	(rejected hunks)
+@@ -78,6 +78,7 @@
+                 NotificationChannel mChannel = new NotificationChannel("myapp", "myapp", NotificationManager.IMPORTANCE_DEFAULT);
+                 Notifi_M.createNotificationChannel(mChannel);
+                 notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),mChannel.getId());
++                mChannel.enableLights(true);
+                 mChannel.enableVibration(true);
+             } else
+             {

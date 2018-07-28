@@ -25,6 +25,5 @@ public class FragmentMapActivity extends FragmentActivity {
 		mMapView.setFocusable(true);
 		mMapView.setFocusableInTouchMode(true);
 		mMapView.requestFocus();
-
     }
 }

@@ -19,6 +19,7 @@ public class UtilFlash {
                 final Camera camera = driver4Camera.getCamera();//Camera를 받아옵니다.
 
                 FLASH_STATUS = true;//플래쉬가 켜졌으므로 상태값을 true.
+                isRun=true;
 
                 thread = new Thread() {
                     @Override

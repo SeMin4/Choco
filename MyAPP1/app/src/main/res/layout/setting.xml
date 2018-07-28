@@ -1,155 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+    <Switch
+        android:id="@+id/alarmSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
-        android:text="환경설정"
-        android:gravity="center_horizontal"
-        android:textSize="40sp" />
-
-    <LinearLayout
-        android:layout_width="89dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="126dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="122dp">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="71dp"
-            android:layout_height="match_parent">
-
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="false"
-                android:text="소리" />
-
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="진동" />
-
-        </RadioGroup>
-    </LinearLayout>
+        android:layout_marginLeft="131dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="229dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/simulation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="55dp"
-        android:text="돌아가기"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="465dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="109dp"
-        android:text="알림설정"
-        android:gravity="center_horizontal"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="157dp"
-        android:text="위급상황시"
-        android:gravity="center_horizontal"
-        tools:ignore="UnknownId" />
-
-    <LinearLayout
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="112dp"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="131dp"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity=""
-            android:text="무한소리"
-            tools:checked="false" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:text="무한진동" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="227dp"
-        android:text="기능구현"
-        android:gravity="center_horizontal"
-        android:textSize="15sp" />
-
-    <LinearLayout
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="227dp"
-        android:orientation="vertical">
-
-        <Switch
-            android:id="@+id/switch5"
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:text="어플" />
-
-        <Switch
-            android:id="@+id/switch6"
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:text="위치" />
-
-        <Switch
-            android:id="@+id/alarmSwitch"
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="13dp"
-            android:checked="true"
-            android:text="알림"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="13dp"
-            android:layout_alignParentRight="true" />
-    </LinearLayout>
-
-</RelativeLayout>
+        android:layout_marginBottom="151dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginStart="110dp"
+        android:text="시뮬"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>
