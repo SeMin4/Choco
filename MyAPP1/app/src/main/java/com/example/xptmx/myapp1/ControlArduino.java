@@ -306,4 +306,6 @@ public class ControlArduino extends AppCompatActivity {
         workerThread.start();
     }
 
+
+
 }

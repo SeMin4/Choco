@@ -1,15 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <EditText
-        android:id="@+id/editText"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="183dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="두번째화면" />
+        android:layout_marginBottom="-10dp"
+        android:layout_marginTop="-27dp"
+        app:srcCompat="@drawable/report" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/report1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="30dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/firebutton" />
+
+            <ImageButton
+                android:id="@+id/report2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/earthquakebutton" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/report3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/hotbutton" />
+
+            <ImageButton
+                android:id="@+id/report4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/thunderbutton" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/report5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/snowingbutton" />
+
+            <ImageButton
+                android:id="@+id/report6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="140dp"
+                android:maxWidth="140dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/tsunamibutton" />
+        </TableRow>
+
+    </TableLayout>
 </RelativeLayout>
