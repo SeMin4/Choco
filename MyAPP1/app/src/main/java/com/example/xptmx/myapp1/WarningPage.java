@@ -1,12 +1,18 @@
 package com.example.xptmx.myapp1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.Locale;
 import static android.speech.tts.TextToSpeech.ERROR;
@@ -14,6 +20,7 @@ import static android.speech.tts.TextToSpeech.ERROR;
 public class WarningPage extends AppCompatActivity {
 
     private TextToSpeech tts;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +40,48 @@ public class WarningPage extends AppCompatActivity {
             }
         });
 
-        Button btn = (Button) findViewById(R.id.button_warning);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageView rabbit = (ImageView) findViewById(R.id.gif_image);
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(rabbit);
+        Glide.with(this).load(R.drawable.warning6).into(gifImage);
+
+
+        tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
+
+
+        final ImageButton lightbutton = (ImageButton) findViewById(R.id.lightbutton);
+        lightbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i = 1 - i;
+                if (i == 1) {
+                    lightbutton.setImageResource(R.drawable.light_offbutton);
+                    UtilFlash.flash_on();
+                } else {
+                    lightbutton.setImageResource(R.drawable.light_onbutton);
+                    UtilFlash.flash_off();
+                }
+
+            }
+        });
+
+        //
+        ImageButton homegobutton = (ImageButton) findViewById(R.id.homegobutton);
+        homegobutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
-        tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-        Button btn2 = (Button) findViewById(R.id.stop_speek_button);
-        btn2.setOnClickListener(new View.OnClickListener() {
+        ImageButton shelfindbutton = (ImageButton) findViewById(R.id.shelfindbutton);
+        shelfindbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
+                Intent intent = new Intent(getApplicationContext(), Shelter.class);
+                startActivity(intent);
             }
         });
+
 
         TextView tv = (TextView) findViewById(R.id.textView_warning);
         tv.setText(intent.getStringExtra("msg") + "\n" + intent.getStringExtra("create_date"));
@@ -56,15 +89,6 @@ public class WarningPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-                //tts.stop();
-            }
-        });
-
-        Button btn3=(Button)findViewById(R.id.light_off_button);
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UtilFlash.flash_off();
             }
         });
     }

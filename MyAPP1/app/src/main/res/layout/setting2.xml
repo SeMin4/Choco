@@ -44,6 +44,7 @@
                         android:background="#00FFFFFF"
                         android:maxHeight="350dp"
                         android:maxWidth="350dp"
+                        android:onClick="alarmClick"
                         android:paddingBottom="10dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/set_alarmbutton" />
@@ -109,6 +110,7 @@
                         android:maxWidth="300dp"
                         android:paddingBottom="10dp"
                         android:scaleType="fitCenter"
+
                         app:srcCompat="@drawable/set_bluebutton" />
                 </TableRow>
 

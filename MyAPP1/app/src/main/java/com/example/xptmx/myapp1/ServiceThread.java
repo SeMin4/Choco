@@ -47,7 +47,7 @@ public class ServiceThread extends Thread {
             md101_sn=my_list_item.getMd101_sn();
             msg=my_list_item.getContent();
 
-            /*if(dataExist==false) {
+            if(dataExist==false) {
                 recent_create_date = create_date;
                 recent_location_id = location_id;
                 recent_location_name= location_name;
@@ -67,7 +67,7 @@ public class ServiceThread extends Thread {
                 Message msg=handler.obtainMessage();
                 msg.obj=my_list_item;
                 handler.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
-            }*/
+            }
 
             /*my_list_item=new list_item(create_date,msg,location_id,location_name,md101_sn);
             Message msg=handler.obtainMessage();

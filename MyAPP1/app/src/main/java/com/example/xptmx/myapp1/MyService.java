@@ -1,5 +1,6 @@
 package com.example.xptmx.myapp1;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,13 +9,16 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,7 +27,6 @@ import java.util.Locale;
 import static android.speech.tts.TextToSpeech.ERROR;
 
 public class MyService extends Service {
-
     MediaPlayer mp;
     NotificationManager Notifi_M;
     ServiceThread thread;
@@ -68,6 +71,9 @@ public class MyService extends Service {
         @Override
         public void handleMessage(android.os.Message msg) {
             Intent intent = new Intent(MyService.this, WarningPage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             my_list_item = (list_item) msg.obj;
             intent.putExtra("create_date", my_list_item.getCreate_date());
             intent.putExtra("location_id", my_list_item.getLocation_id());
@@ -81,6 +87,7 @@ public class MyService extends Service {
                 NotificationChannel mChannel = new NotificationChannel("myapp", "myapp", NotificationManager.IMPORTANCE_DEFAULT);
                 Notifi_M.createNotificationChannel(mChannel);
                 notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),mChannel.getId());
+                mChannel.enableLights(true);
                 mChannel.enableVibration(true);
             } else
             {
@@ -102,10 +109,11 @@ public class MyService extends Service {
 
             Notifi_M.notify(777, notificationBuilder.build());
 
-            UtilFlash.flash_on();
             //mp.start();
             //토스트 띄우기
             //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+
+                UtilFlash.flash_on();
         }
     }
 
@@ -117,7 +125,7 @@ public class MyService extends Service {
         mp.stop();
         Log.d("test", "서비스의 onDestroy");
 
-        if (tts != null) {
+            if (tts != null) {
             tts.stop();
             tts.shutdown();
             tts = null;

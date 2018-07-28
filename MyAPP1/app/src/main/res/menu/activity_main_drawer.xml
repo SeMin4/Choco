@@ -10,21 +10,8 @@
             android:title="공지사항" />
         <item
             android:id="@+id/nav_second_layout"
-            android:icon="@drawable/play_security"
-            android:title="이용약관" />
+            android:icon="@drawable/post"
+            android:title="제보하기" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="공유" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="보내기" />
-        </menu>
-    </item>
 
 </menu>

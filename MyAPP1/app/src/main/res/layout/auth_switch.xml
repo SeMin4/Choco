@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="10dp"
+        android:text="위치 권한"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/auth_switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="80dp"
+        android:paddingLeft="10dp"
+        android:text="푸쉬 권한"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/auth_switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="130dp"
+        android:paddingLeft="10dp"
+        android:text="블루투스 권한"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/auth_switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="130dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="180dp"
+        android:paddingLeft="10dp"
+        android:text="카메라 권한"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/auth_switch4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="180dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="230dp"
+        android:paddingLeft="10dp"
+        android:text="녹음 권한"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/auth_switch5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="230dp" />
+
+</RelativeLayout>
