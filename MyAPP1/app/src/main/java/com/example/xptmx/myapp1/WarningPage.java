@@ -52,12 +52,13 @@ public class WarningPage extends AppCompatActivity {
         lightbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                i = 1- i;
-                if(i==0){
+                i = 1 - i;
+                if (i == 1) {
                     lightbutton.setImageResource(R.drawable.light_offbutton);
-                }
-                else{
+                    UtilFlash.flash_on();
+                } else {
                     lightbutton.setImageResource(R.drawable.light_onbutton);
+                    UtilFlash.flash_off();
                 }
 
             }
@@ -68,7 +69,7 @@ public class WarningPage extends AppCompatActivity {
         homegobutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,7 +77,7 @@ public class WarningPage extends AppCompatActivity {
         shelfindbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Shelter.class);
+                Intent intent = new Intent(getApplicationContext(), Shelter.class);
                 startActivity(intent);
             }
         });
@@ -88,10 +89,8 @@ public class WarningPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null);
-                //tts.stop();
             }
         });
-
     }
 
     protected void onDestroy() {
