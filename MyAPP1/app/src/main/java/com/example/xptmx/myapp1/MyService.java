@@ -23,7 +23,6 @@ import java.util.Locale;
 import static android.speech.tts.TextToSpeech.ERROR;
 
 public class MyService extends Service {
-
     MediaPlayer mp;
     NotificationManager Notifi_M;
     ServiceThread thread;

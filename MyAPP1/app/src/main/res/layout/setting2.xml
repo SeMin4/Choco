@@ -109,6 +109,7 @@
                         android:maxWidth="300dp"
                         android:paddingBottom="10dp"
                         android:scaleType="fitCenter"
+
                         app:srcCompat="@drawable/set_bluebutton" />
                 </TableRow>
 
