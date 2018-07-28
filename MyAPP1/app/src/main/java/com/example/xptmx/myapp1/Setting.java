@@ -18,6 +18,8 @@ import android.media.RingtoneManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
@@ -62,7 +64,8 @@ public class Setting extends AppCompatActivity {
     final int DIALOG_RADIO = 1;
     final int DIALOG_SWITCH = 2;
     final int DIALOG_B = 3;
-
+    static Handler myHandler;
+    list_item my_list_item;
 
 
     @Override
@@ -144,6 +147,19 @@ public class Setting extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
+            }
+        });
+
+        simulbotton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyGlobals.getInstance().makeRecentData();
+                my_list_item=MyGlobals.getInstance().getRecent_list_item();
+
+                Message msg=myHandler.obtainMessage();
+                msg.obj=my_list_item;
+                myHandler.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
+                int code=MyGlobals.getInstance().makeCode(my_list_item.getContent());
             }
         });
     }
@@ -263,6 +279,10 @@ public class Setting extends AppCompatActivity {
             auth.create().show();
         }
         return super.onCreateDialog(id);
+    }
+
+    protected static void setHandler(Handler handler){
+        myHandler=handler;
     }
 }
 

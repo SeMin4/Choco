@@ -17,6 +17,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceSate);
         setContentView(R.layout.intro);
 
+        MyGlobals.getInstance().listCreate();
+        MyGlobals.getInstance().makeData(1);
+        MyGlobals.getInstance().makeData(2);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
 

@@ -53,6 +53,7 @@ public class MyService extends Service {
         myServiceHandler handler = new myServiceHandler();
         thread = new ServiceThread(handler);
         thread.start();
+        Setting.setHandler(handler);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -70,6 +71,9 @@ public class MyService extends Service {
         @Override
         public void handleMessage(android.os.Message msg) {
             Intent intent = new Intent(MyService.this, WarningPage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             my_list_item = (list_item) msg.obj;
             intent.putExtra("create_date", my_list_item.getCreate_date());
             intent.putExtra("location_id", my_list_item.getLocation_id());
