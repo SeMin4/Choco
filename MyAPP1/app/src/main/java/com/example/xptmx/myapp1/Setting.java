@@ -71,13 +71,12 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-       // cd = (RadioButton) findViewById(R.id.)
     }
 
     @Override
     @Deprecated
     protected Dialog onCreateDialog(int id) {
+
        final MediaPlayer m = MediaPlayer.create(Setting.this, R.raw.aa);
         SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -93,12 +92,9 @@ public class Setting extends AppCompatActivity {
             builder1.setTitle("알림설정")
                     .setPositiveButton("선택완료",
                             new DialogInterface.OnClickListener() {
-
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText(getApplicationContext(),
-                                            str1[temp] + "을 선택했음",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),str1[temp] + "을 선택했음", Toast.LENGTH_SHORT).show();
                                     if (str1[temp] == "소리") {
                                         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                                     } else if (str1[temp] == "진동") {
@@ -122,7 +118,7 @@ public class Setting extends AppCompatActivity {
                     new AlertDialog.Builder(Setting.this);
             final String str2[] = {"소리 진동", "소리", "진동"};
 
-            builder2.setTitle("알림설정")
+            builder2.setTitle("위급 상황 시")
                     .setPositiveButton("선택완료",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -164,5 +160,5 @@ public class Setting extends AppCompatActivity {
         }
         return super.onCreateDialog(id);
     }
-
 }
+
