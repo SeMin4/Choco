@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.Locale;
+import java.util.concurrent.ExecutorCompletionService;
+
 import static android.speech.tts.TextToSpeech.ERROR;
 
 public class WarningPage extends AppCompatActivity {
@@ -101,5 +103,8 @@ public class WarningPage extends AppCompatActivity {
             tts.shutdown();
             tts = null;
         }
+        try {
+            GlobalAduino.getInstance().sendData(0);
+        }catch (Exception e){}
     }
 }

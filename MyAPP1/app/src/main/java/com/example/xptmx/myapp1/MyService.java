@@ -116,11 +116,9 @@ public class MyService extends Service {
             {
                 //
             }
-            //mp.start();
-            //토스트 띄우기
-            //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+            startActivity(intent);
 
-                UtilFlash.flash_on();
+            UtilFlash.flash_on();
         }
     }
 
