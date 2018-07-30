@@ -68,8 +68,7 @@ public class Setting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.setting2);
-        ImageButton bluebotton = (ImageButton) findViewById(R.id.set_bluebutton);
+        setContentView(R.layout.setting);
         ImageButton  simulbotton = (ImageButton) findViewById(R.id.set_simulbutton);
         ImageButton b1 = (ImageButton) findViewById(R.id.set_alarmbutton);
         b1.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +91,8 @@ public class Setting extends AppCompatActivity {
                 showDialog(DIALOG_B);
             }
         });
-        bluebotton.setOnClickListener(new View.OnClickListener() {
+        ImageButton bluebutton = (ImageButton) findViewById(R.id.set_bluebutton);
+        bluebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -177,7 +177,7 @@ public class Setting extends AppCompatActivity {
         dialog.show();
     }
 
-     @Override
+    @Override
     @Deprecated
     protected Dialog onCreateDialog(int id) {
 
@@ -259,7 +259,7 @@ public class Setting extends AppCompatActivity {
             LayoutInflater inflater3 = this.getLayoutInflater();
             View dialogView1 = inflater3.inflate(R.layout.auth_switch, null);
             auth.setView(dialogView1);
-            auth.setTitle("권환설정");
+            auth.setTitle("권한설정");
             auth.create().show();
         }
         return super.onCreateDialog(id);
