@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
@@ -110,9 +113,12 @@ public class Shelter extends NMapActivity{
             mMapContainerView.addView(mMapView);
 
             // set the activity content to the parent view
-            setContentView(mMapContainerView);
+            //setContentView(mMapContainerView);
         }
+
+
          mMapView.setClientId(CLIENT_ID);
+
 
     // initialize map view
         mMapView.setClickable(true);

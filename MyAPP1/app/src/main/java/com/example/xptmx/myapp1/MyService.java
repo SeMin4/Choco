@@ -54,6 +54,7 @@ public class MyService extends Service {
         thread = new ServiceThread(handler);
         thread.start();
         Setting.setHandler(handler);
+        GlobalAduino.setHandler(handler);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -108,7 +109,13 @@ public class MyService extends Service {
             //tts.speak(my_list_item.getContent(), TextToSpeech.QUEUE_ADD, null);
 
             Notifi_M.notify(777, notificationBuilder.build());
-
+            int code=MyGlobals.getInstance().makeCode(my_list_item.getContent());
+            try {
+                GlobalAduino.getInstance().sendData(code);
+            }catch(Exception e)
+            {
+                //
+            }
             //mp.start();
             //토스트 띄우기
             //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();

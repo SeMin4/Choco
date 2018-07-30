@@ -170,15 +170,24 @@ public class Setting extends AppCompatActivity {
         SharedPreferences.Editor editor = mPairedSettings.edit();
         editor.putString(BP_PREFERENCES_PAIRED_DEVICE, strText);
         editor.commit();
+        final String dName=strText;
         //블루투스 확인 메시지 다이얼로그 띄우기
         AlertDialog.Builder builder = new AlertDialog.Builder(Setting.this);
         builder.setCancelable(true);
         builder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Activity 에서 대화상자를 닫도록 메소드를 호출한다.
-                Intent intent = new Intent(getApplicationContext(), ControlArduino.class);
-                startActivity(intent);
+
+                if(!mBluetoothAdapter.isEnabled())
+                {
+                    Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBluetooth, 0);
+                }
+                GlobalAduino.getInstance().setDevicename(dName);
                 bluetoothcnonnected = true;
+
+                Intent intent = new Intent(getApplicationContext(), ArduinoSerivce.class);
+                startService(intent);
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {

@@ -139,15 +139,24 @@ public class MyGlobals {
 
     public int makeCode(String s)
     {
-        int code=-1;
+        int code=7; //기본값
 
-        if(s.contains("호우"))
-            code=0;
-
-
+        if(s.contains("지진"))
+            code=1;
+        else if(s.contains("폭염"))
+            code=2;
+        else if(s.contains("낙뢰"))
+            code=3;
+        else if(s.contains("대설"))
+            code=4;
+        else if(s.contains("해일"))
+            code=5;
+        else if(s.contains("화재"))
+            code=6;
 
         return code;
     }
+
     public void makeData(int page)
     {
 
