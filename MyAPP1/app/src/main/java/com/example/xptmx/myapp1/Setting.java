@@ -22,10 +22,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -162,6 +166,37 @@ public class Setting extends AppCompatActivity {
                 int code=MyGlobals.getInstance().makeCode(my_list_item.getContent());
             }
         });
+
+        BottomNavigationView bottomNavigation = (BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        Intent intent0=new Intent(Setting.this,MainActivity.class);
+                        startActivity(intent0);
+                        return true;
+                    case R.id.navigation_shelter:
+                        Intent intent1=new Intent(Setting.this,Shelter.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.navigation_message:
+                        Intent intent2=new Intent(Setting.this,Disater_message.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.navigation_tips:
+                        Intent intent3=new Intent(Setting.this,Tips.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.navigation_setting:
+                        return true;
+                }
+                return false;
+            }
+        });
+        Menu menu=bottomNavigation.getMenu();
+        MenuItem menuItem=menu.getItem(4);
+        menuItem.setChecked(true);
     }
 
     protected void listclick(String[] bluetoothdevice , int position, String strText){
