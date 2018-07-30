@@ -1,10 +1,15 @@
 package com.example.xptmx.myapp1;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -207,5 +212,38 @@ public class SecondLayout extends AppCompatActivity{
                 ad.show();
             }
         });
+        BottomNavigationView bottomNavigation = (BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        Intent intent0=new Intent(SecondLayout.this,MainActivity.class);
+                        startActivity(intent0);
+                        return true;
+                    case R.id.navigation_shelter:
+                        Intent intent1=new Intent(SecondLayout.this,Shelter.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.navigation_message:
+                        Intent intent2=new Intent(SecondLayout.this,Disater_message.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.navigation_tips:
+                        Intent intent3=new Intent(SecondLayout.this,Tips.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.navigation_setting:
+                        Intent intent4=new Intent(SecondLayout.this,Setting.class);
+                        startActivity(intent4);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        Menu menu=bottomNavigation.getMenu();
+        MenuItem menuItem=menu.getItem(0);
+        menuItem.setChecked(true);
     }
 }

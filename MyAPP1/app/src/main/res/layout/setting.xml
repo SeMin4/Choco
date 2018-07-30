@@ -6,10 +6,6 @@
     android:background="#ffffff">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,7 +34,7 @@
                         android:id="@+id/set_alarmbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginTop="0dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -59,7 +55,7 @@
                         android:id="@+id/set_authbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginTop="0dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -80,7 +76,7 @@
                         android:id="@+id/set_emerbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginTop="0dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -101,7 +97,7 @@
                         android:id="@+id/set_bluebutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginTop="0dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -122,7 +118,7 @@
                         android:id="@+id/set_simulbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginTop="0dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -155,7 +151,17 @@
                 </TableRow>
             </TableLayout>
         </LinearLayout>
-    </ScrollView>
 
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/navigation" />
 
 </RelativeLayout>

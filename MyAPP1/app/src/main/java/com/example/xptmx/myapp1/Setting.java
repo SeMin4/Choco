@@ -59,7 +59,7 @@ public class Setting extends AppCompatActivity {
     public static boolean bluetoothcnonnected = false;
     public static String bluetooth_connectdevice;
     BluetoothAdapter mBluetoothAdapter;
-    int temp, temp2;
+    int temp, temp2,temp3;
 
     final int DIALOG_RADIO = 1;
     final int DIALOG_SWITCH = 2;
@@ -71,8 +71,7 @@ public class Setting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.setting2);
-        ImageButton bluebotton = (ImageButton) findViewById(R.id.set_bluebutton);
+        setContentView(R.layout.setting);
         ImageButton  simulbotton = (ImageButton) findViewById(R.id.set_simulbutton);
         ImageButton b1 = (ImageButton) findViewById(R.id.set_alarmbutton);
         b1.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +94,8 @@ public class Setting extends AppCompatActivity {
                 showDialog(DIALOG_B);
             }
         });
-        bluebotton.setOnClickListener(new View.OnClickListener() {
+        ImageButton bluebutton = (ImageButton) findViewById(R.id.set_bluebutton);
+        bluebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -202,7 +202,7 @@ public class Setting extends AppCompatActivity {
         dialog.show();
     }
 
-     @Override
+    @Override
     @Deprecated
     protected Dialog onCreateDialog(int id) {
 
@@ -245,7 +245,7 @@ public class Setting extends AppCompatActivity {
         } else if (id == DIALOG_SWITCH) {
             AlertDialog.Builder builder2 =
                     new AlertDialog.Builder(Setting.this);
-            final String str2[] = {"소리 진동", "소리", "진동"};
+            final String str2[] = {"소리 진동", "소리", "진동","모두 끄기"};
 
             builder2.setTitle("위급 상황 시")
                     .setPositiveButton("선택완료",
@@ -264,6 +264,9 @@ public class Setting extends AppCompatActivity {
                                     } else if (str2[temp2] == "진동") {
                                         m.stop();
                                         vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                                    }else if(str2[temp2] == "모두 끄기"){
+                                        m.stop();
+                                        vibrator.cancel();
                                     }
                                 }
 
@@ -280,12 +283,57 @@ public class Setting extends AppCompatActivity {
                                     });
             return builder2.create();
         } else if (id == DIALOG_B) {
-            AlertDialog.Builder auth = new AlertDialog.Builder(this);
-            LayoutInflater inflater3 = this.getLayoutInflater();
-            View dialogView1 = inflater3.inflate(R.layout.auth_switch, null);
-            auth.setView(dialogView1);
-            auth.setTitle("권환설정");
-            auth.create().show();
+            AlertDialog.Builder builder3 =
+                    new AlertDialog.Builder(Setting.this);
+            final String[] items = {"위치 권한", "푸쉬 권한", "블루투스 권한","카메라 권한"};
+            final boolean[] checkItems = {false, false, false, false};
+            final List<String> list = new ArrayList<String>();
+
+            builder3.setTitle("권한 설정")
+                    .setMultiChoiceItems(items,
+                            checkItems
+                            , new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
+                                    checkItems[which] = isChecked;
+                                    if(isChecked) {
+
+                                            Toast.makeText(Setting.this, items[which],
+                                                    Toast.LENGTH_SHORT).show();
+                                            list.remove(items[which]);
+
+                                    }
+                                }
+                            }
+                    )
+                    .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            if(checkItems[0] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                            if(checkItems[1] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                            if(checkItems[2] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                            if(checkItems[3] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                        }
+                    })
+                    .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(Setting.this
+                                    , "취소 버튼을 눌렀습니다."
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            builder3.create();
+            builder3.show();
         }
         return super.onCreateDialog(id);
     }
@@ -294,5 +342,3 @@ public class Setting extends AppCompatActivity {
         myHandler=handler;
     }
 }
-
-
