@@ -1,5 +1,6 @@
 package com.example.xptmx.myapp1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -24,7 +26,9 @@ import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,18 +69,21 @@ public class Setting extends AppCompatActivity {
     BluetoothAdapter mBluetoothAdapter;
     int temp, temp2,temp3;
 
+    final int PERMISSION=1;
     final int DIALOG_RADIO = 1;
     final int DIALOG_SWITCH = 2;
     final int DIALOG_B = 3;
     static Handler myHandler;
     list_item my_list_item;
 
-
+    String[] listItems;
+    boolean[] checkedItems;
+    ArrayList<Integer> mUserItems = new ArrayList<>();
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.setting);
-        ImageButton  simulbotton = (ImageButton) findViewById(R.id.set_simulbutton);
+        ImageButton simulbotton = (ImageButton) findViewById(R.id.set_simulbutton);
         ImageButton b1 = (ImageButton) findViewById(R.id.set_alarmbutton);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +98,21 @@ public class Setting extends AppCompatActivity {
                 showDialog(DIALOG_SWITCH);
             }
         });
+
+
+
+        listItems = getResources().getStringArray(R.array.shopping_item);
         ImageButton b3 = (ImageButton) findViewById(R.id.set_authbutton);
+
+        checkedItems = new boolean[listItems.length];
+        if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            checkedItems[0] = true;
+        }
+        if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            checkedItems[1] = true;
+        }
+
+
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,9 +215,12 @@ public class Setting extends AppCompatActivity {
                 return false;
             }
         });
+
         Menu menu=bottomNavigation.getMenu();
         MenuItem menuItem=menu.getItem(4);
         menuItem.setChecked(true);
+
+
     }
 
     protected void listclick(String[] bluetoothdevice , int position, String strText){
@@ -205,24 +229,15 @@ public class Setting extends AppCompatActivity {
         SharedPreferences.Editor editor = mPairedSettings.edit();
         editor.putString(BP_PREFERENCES_PAIRED_DEVICE, strText);
         editor.commit();
-        final String dName=strText;
         //블루투스 확인 메시지 다이얼로그 띄우기
         AlertDialog.Builder builder = new AlertDialog.Builder(Setting.this);
         builder.setCancelable(true);
         builder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Activity 에서 대화상자를 닫도록 메소드를 호출한다.
-
-                if(!mBluetoothAdapter.isEnabled())
-                {
-                    Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(enableBluetooth, 0);
-                }
-                GlobalAduino.getInstance().setDevicename(dName);
+                Intent intent = new Intent(getApplicationContext(), ControlArduino.class);
+                startActivity(intent);
                 bluetoothcnonnected = true;
-
-                Intent intent = new Intent(getApplicationContext(), ArduinoSerivce.class);
-                startService(intent);
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -317,61 +332,92 @@ public class Setting extends AppCompatActivity {
                                         }
                                     });
             return builder2.create();
-        } else if (id == DIALOG_B) {
-            AlertDialog.Builder builder3 =
-                    new AlertDialog.Builder(Setting.this);
-            final String[] items = {"위치 권한", "푸쉬 권한", "블루투스 권한","카메라 권한"};
-            final boolean[] checkItems = {false, false, false, false};
-            final List<String> list = new ArrayList<String>();
+        }
+        else if(id == DIALOG_B){
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(Setting.this);
+            mBuilder.setTitle("권한설정");
+            mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                    if(isChecked){
+                        if(! mUserItems.contains(position)){
+                            mUserItems.add(position);
+                        }else{
+                            mUserItems.remove(position);
+                        }
+                    }
+                }
+            });
 
-            builder3.setTitle("권한 설정")
-                    .setMultiChoiceItems(items,
-                            checkItems
-                            , new DialogInterface.OnMultiChoiceClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
-                                    checkItems[which] = isChecked;
-                                    if(isChecked) {
+            mBuilder.setCancelable(false);
+            mBuilder.setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    if(checkedItems[0] == true && checkedItems[1] == true){
+                        if (ContextCompat.checkSelfPermission(Setting.this,
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                                ContextCompat.checkSelfPermission(Setting.this,
+                                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(Setting.this,
+                                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
+                                            Manifest.permission.CAMERA}, PERMISSION);
+                        }
 
-                                            Toast.makeText(Setting.this, items[which],
-                                                    Toast.LENGTH_SHORT).show();
-                                            list.remove(items[which]);
-
-                                    }
-                                }
+                    }
+                    else if(checkedItems[1] == true) {
+                        if (ContextCompat.checkSelfPermission(Setting.this,
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(Setting.this,
+                                    new String[]{Manifest.permission.CAMERA}, PERMISSION);
+                            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[1] = false;
                             }
-                    )
-                    .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int which) {
-                            if(checkItems[0] == true){
-                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
-                            }
-                            if(checkItems[1] == true){
-                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
-                            }
-                            if(checkItems[2] == true){
-                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
-                            }
-                            if(checkItems[3] == true){
-                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            else if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[1] = false;
                             }
                         }
-                    })
-                    .setNeutralButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(Setting.this
-                                    , "취소 버튼을 눌렀습니다."
-                                    , Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    }
 
-            builder3.create();
-            builder3.show();
+                    else if(checkedItems[0] == true) {
+                        if (ContextCompat.checkSelfPermission(Setting.this,
+                                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(Setting.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION);
+                            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[0] = false;
+                            }
+                            else if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[0] = false;
+                            }
+                        }
+                    }
+
+                    String item = "";
+                    for(int i=0;i<mUserItems.size(); i++){
+                        item = item + listItems[mUserItems.get(i)];
+                        if(i != mUserItems.size()-1){
+                            item = item + ", ";
+                        }
+                    }
+
+                }
+            });
+
+            mBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+
+
+            AlertDialog mDialog = mBuilder.create();
+            mDialog.show();
         }
         return super.onCreateDialog(id);
     }
+
+
 
     protected static void setHandler(Handler handler){
         myHandler=handler;

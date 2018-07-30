@@ -109,7 +109,7 @@ public class Shelter extends NMapActivity{
             mMapContainerView.addView(mMapView);
 
             // set the activity content to the parent view
-            //setContentView(mMapContainerView);
+            setContentView(mMapContainerView);
         }
 
 
