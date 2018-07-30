@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -117,6 +121,39 @@ public class Disater_message extends AppCompatActivity implements AbsListView.On
                 return true;
             }
         });*/
+
+        BottomNavigationView bottomNavigation = (BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        Intent intent1=new Intent(Disater_message.this,MainActivity.class);
+                        startActivity(intent1);
+                        return true;
+                    case R.id.navigation_shelter:
+                        Intent intent2=new Intent(Disater_message.this,Shelter.class);
+                        startActivity(intent2);
+                        return true;
+                    case R.id.navigation_message:
+                        return true;
+                    case R.id.navigation_tips:
+                        Intent intent3=new Intent(Disater_message.this,Tips.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.navigation_setting:
+                        Intent intent4=new Intent(Disater_message.this,Setting.class);
+                        startActivity(intent4);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        Menu menu=bottomNavigation.getMenu();
+        MenuItem menuItem=menu.getItem(2);
+        menuItem.setChecked(true);
+
     }
 
     @Override

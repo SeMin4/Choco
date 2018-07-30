@@ -59,7 +59,7 @@ public class Setting extends AppCompatActivity {
     public static boolean bluetoothcnonnected = false;
     public static String bluetooth_connectdevice;
     BluetoothAdapter mBluetoothAdapter;
-    int temp, temp2;
+    int temp, temp2,temp3;
 
     final int DIALOG_RADIO = 1;
     final int DIALOG_SWITCH = 2;
@@ -277,28 +277,41 @@ public class Setting extends AppCompatActivity {
             AlertDialog.Builder builder3 =
                     new AlertDialog.Builder(Setting.this);
             final String[] items = {"위치 권한", "푸쉬 권한", "블루투스 권한","카메라 권한"};
+            final boolean[] checkItems = {false, false, false, false};
             final List<String> list = new ArrayList<String>();
 
             builder3.setTitle("권한 설정")
                     .setMultiChoiceItems(items,
-                            new boolean[]{false,false,false,false}
+                            checkItems
                             , new DialogInterface.OnMultiChoiceClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
+                                    checkItems[which] = isChecked;
+                                    if(isChecked) {
 
+                                            Toast.makeText(Setting.this, items[which],
+                                                    Toast.LENGTH_SHORT).show();
+                                            list.remove(items[which]);
+
+                                    }
                                 }
                             }
                     )
-                    .setPositiveButton("선택완료:", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String selectedItem = "";
-                            for(String item : list) {
-                                selectedItem += item + ", ";
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            if(checkItems[0] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
                             }
-                            Toast.makeText(Setting.this
-                                    ,selectedItem
-                                    ,Toast.LENGTH_SHORT).show();
+                            if(checkItems[1] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                            if(checkItems[2] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
+                            if(checkItems[3] == true){
+                                vibrator.vibrate(new long[]{100, 1000, 100, 500, 100, 500, 100, 1000}, 0);
+                            }
                         }
                     })
                     .setNeutralButton("취소", new DialogInterface.OnClickListener() {
