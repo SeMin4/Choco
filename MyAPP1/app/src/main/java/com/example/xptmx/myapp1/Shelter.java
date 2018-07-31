@@ -133,6 +133,7 @@ public class Shelter extends NMapActivity{
         mMapView.setBuiltInZoomControls(true, null);
         //Location 매니저와 Resource 공급자를 생성
         mMapLocationManager = new NMapLocationManager(Shelter.this);
+
         mMapViewerResourceProvider = new NMapViewerResourceProvider(Shelter.this);
         //nMapActivity에서 맵에 대한 공급자에 대한 Listener를 생성
         super.setMapDataProviderListener(onDataProviderListener);
@@ -150,8 +151,13 @@ public class Shelter extends NMapActivity{
         mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 
         startMyLocation();
-
-
+        mMapLocationManager.enableMyLocation(true);
+        if(mMapLocationManager.isMyLocationEnabled() == true)
+        if(mMapLocationManager.isMyLocationFixed() == true)
+        {
+            System.out.print("현재위치" + mMapLocationManager.getMyLocation());
+        }
+      //  System.out.print(mMapLocationManager.getMyLocation().getLatitude());
 
 
         InputStream inputStream = getResources().openRawResource(R.raw.earthquake_shelter);
@@ -172,10 +178,9 @@ public class Shelter extends NMapActivity{
             }
             scanner.close();
 
-            for(EarthquakeShelter v : list){
+           /* for(EarthquakeShelter v : list){
                 System.out.println(v.toString());
-            }
-
+            }*/
         //testPathDataOverlay ();
        // testPathPOIdataOverlay();
       testPOIdataOverlay(list);

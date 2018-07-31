@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "921069939985",
+    "firebase_url": "https://busanhackathon.firebaseio.com",
+    "project_id": "busanhackathon",
+    "storage_bucket": "busanhackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921069939985:android:bae6e7808c3b3267",
+        "android_client_info": {
+          "package_name": "com.example.xptmx.myapp1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921069939985-mlfnj8l89qd3io3mlligp7jp08fsscvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD73w66goypdSeUVHtVYHt-_3IZP6pEh8E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
