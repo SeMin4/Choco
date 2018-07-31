@@ -5,10 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_layout"
-            android:icon="@drawable/notification"
-            android:title="공지사항" />
-        <item
             android:id="@+id/nav_second_layout"
             android:icon="@drawable/post"
             android:title="제보하기" />

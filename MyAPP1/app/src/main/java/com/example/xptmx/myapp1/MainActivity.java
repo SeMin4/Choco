@@ -223,12 +223,12 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager manager = getFragmentManager();
 
-        if (id == R.id.nav_first_layout) {
+        /*if (id == R.id.nav_first_layout) {
               Intent intent =new Intent(getApplicationContext(),FirstLayout.class);
                     startActivity(intent);
-        }
+        }*/
 
-        else if (id == R.id.nav_second_layout) {
+        if (id == R.id.nav_second_layout) {
             Intent intent =new Intent(getApplicationContext(),SecondLayout.class);
             startActivity(intent);
         }

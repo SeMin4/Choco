@@ -7,6 +7,13 @@
     android:id="@+id/cl_sensor"
     tools:context=".shake">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="409dp"
+        android:layout_height="65dp"
+        app:srcCompat="@drawable/sos_title"
+        tools:layout_editor_absoluteX="-16dp" />
+
     <TextView
         android:id="@+id/tv_status"
         android:textSize="32dp"

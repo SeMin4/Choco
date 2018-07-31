@@ -359,36 +359,36 @@ public class Setting extends AppCompatActivity {
                 }
             });
 
+            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                checkedItems[0] = true;
+            }
+            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                checkedItems[1] = true;
+            }
+            
             mBuilder.setCancelable(false);
             mBuilder.setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
+
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
-                    if(checkedItems[0] == true && checkedItems[1] == true){
+                    if(checkedItems[1] == true && checkedItems[0] == true) {
                         if (ContextCompat.checkSelfPermission(Setting.this,
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
-                                ContextCompat.checkSelfPermission(Setting.this,
-                                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(Setting.this,
+                                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(Setting.this,
-                                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION,
-                                            Manifest.permission.CAMERA}, PERMISSION);
-                        }
+                                    new String[]{Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION);
 
-                    }
-                    else if(checkedItems[1] == true) {
-                        if (ContextCompat.checkSelfPermission(Setting.this,
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(Setting.this,
-                                    new String[]{Manifest.permission.CAMERA}, PERMISSION);
+                            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[0] = false;
+                            }
                             if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                                 checkedItems[1] = false;
                             }
-                            else if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                                checkedItems[1] = false;
-                            }
                         }
+
                     }
 
-                    else if(checkedItems[0] == true) {
+                    if(checkedItems[0] == true) {
                         if (ContextCompat.checkSelfPermission(Setting.this,
                                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(Setting.this,
@@ -397,7 +397,20 @@ public class Setting extends AppCompatActivity {
                                 checkedItems[0] = false;
                             }
                             else if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                                checkedItems[0] = false;
+                                checkedItems[0] = true;
+                            }
+                        }
+                    }
+                    if(checkedItems[1] == true) {
+                        if (ContextCompat.checkSelfPermission(Setting.this,
+                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(Setting.this,
+                                    new String[]{Manifest.permission.CAMERA}, PERMISSION);
+                            if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[1] = false;
+                            }
+                            else if(ContextCompat.checkSelfPermission(Setting.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                                checkedItems[1] = true;
                             }
                         }
                     }
@@ -412,7 +425,6 @@ public class Setting extends AppCompatActivity {
 
                 }
             });
-
             mBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

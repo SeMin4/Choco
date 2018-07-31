@@ -28,6 +28,8 @@ public class shake extends AppCompatActivity implements SensorEventListener{
     private SensorManager sensorManager;
     private Sensor senAccelerometer;
 
+    Boolean check = false;
+
     private long lastUpdate = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD =3000;
@@ -93,35 +95,31 @@ public class shake extends AppCompatActivity implements SensorEventListener{
                 lastUpdate = curTime;
 
                 float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-                if (speed > SHAKE_THRESHOLD) {
-                    //지정된 수치이상 흔들림이 있으면 실행
-                    constraintLayout.setBackgroundColor(Color.rgb(255, 0, 0));
-                    tvSensorStatus.setText("흔들림 감지!");
+                if(check == false) {
+                    if (speed > SHAKE_THRESHOLD) {
+                        //지정된 수치이상 흔들림이 있으면 실행
+                        constraintLayout.setBackgroundColor(Color.rgb(255, 0, 0));
+                        tvSensorStatus.setText("흔들림 감지!");
 
-                    AlertDialog.Builder sos = new AlertDialog.Builder(
-                            shake.this);
+                        AlertDialog.Builder sos = new AlertDialog.Builder(
+                                shake.this);
 
-                    sos.setTitle("도움 요청하기");
-                    sos.setMessage("도움을 요청하시겠습니까?");
+                        sos.setTitle("도움 요청하기");
+                        sos.setMessage("도움 요청이 되었습니다.");
 
-                    sos.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
-                        }
-                    });
-                    sos.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.dismiss();
-                        }
-                    });
-                    sos.show();
-                } else if (speed < 10) {
-                    constraintLayout.setBackgroundColor(Color.rgb(255, 255, 255));
-                    tvSensorStatus.setText("흔들림 없음!");
+                        sos.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.dismiss();
+                            }
+                        });
+                        check = true;
+                        sos.show();
+                    } else if (speed < 10) {
+                        constraintLayout.setBackgroundColor(Color.rgb(255, 255, 255));
+                        tvSensorStatus.setText("흔들림 없음!");
+                    }
                 }
-
                 //갱신
                 last_x = x;
                 last_y = y;
