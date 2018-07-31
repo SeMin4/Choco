@@ -1,8 +1,6 @@
 package com.example.xptmx.myapp1;
 
 
-import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,13 +10,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
@@ -44,7 +44,6 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -112,7 +111,10 @@ public class Shelter extends NMapActivity{
             // set the activity content to the parent view
             setContentView(mMapContainerView);
         }
+
+
          mMapView.setClientId(CLIENT_ID);
+
 
     // initialize map view
         mMapView.setClickable(true);

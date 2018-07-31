@@ -5,7 +5,7 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="210dp"
+    android:layout_marginTop="-20dp"
     android:background="#00ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
@@ -21,7 +21,29 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:maxHeight="155dp"
+                android:maxWidth="155dp"
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/help_button" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <ImageButton
                 android:id="@+id/disaster_message"
@@ -43,7 +65,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
 
             <ImageButton
                 android:id="@+id/shelter"
@@ -68,20 +91,20 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
 
             <ImageButton
                 android:id="@+id/tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:layout_marginBottom="0dp"
                 android:adjustViewBounds="true"
                 android:background="#00FFFFFF"
                 android:maxHeight="175dp"
                 android:maxWidth="175dp"
-                android:scaleType="fitCenter"
 
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/findbutton" />
         </TableRow>
 
@@ -107,6 +130,17 @@
                 app:srcCompat="@drawable/settingbutton" />
         </RelativeLayout>
 
+
     </TableLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
 
 </RelativeLayout>

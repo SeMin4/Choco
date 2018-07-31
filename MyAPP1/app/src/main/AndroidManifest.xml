@@ -9,24 +9,26 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-feature android:name="android.hardware.camera"></uses-feature>
-    <uses-permission android:name="android.permission.FLASHLIGHT"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
 
     <application
 
 
         android:allowBackup="true"
+        android:excludeFromRecents="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleInstance"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:launchMode="singleInstance"
-        android:excludeFromRecents="true"
         android:taskAffinity=""
         android:theme="@style/AppTheme">
         <activity android:name=".SplashScreenActivity">
@@ -39,7 +41,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Shelter" />
         <activity android:name=".Setting" />
         <activity android:name=".Disater_message" />
@@ -47,8 +49,8 @@
         <activity android:name=".Disaster_message_onClicked" />
         <activity android:name=".FirstLayout" />
         <activity android:name=".SecondLayout" />
-        <activity android:name=".WarningPage"></activity>
-        <activity android:name=".ControlArduino"></activity>
+        <activity android:name=".WarningPage" />
+        <activity android:name=".shake"/>
         <service android:name=".MyService" />
         <service
             android:name=".CustomFirebaseMessagingService">
@@ -62,6 +64,13 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-    </application>
+		<service
+   android:name=".ArduinoSerivce"
+            android:enabled="true"
+            android:exported="true"></service>
 
+    </application>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

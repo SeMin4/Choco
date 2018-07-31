@@ -1,37 +1,39 @@
 package com.example.xptmx.myapp1;
 
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
+import android.os.Message;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
+import java.util.UUID;
 
+public class GlobalAduino{
+    private static GlobalAduino instance = null;
 
-public class ControlArduino extends AppCompatActivity {
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+    long mNow;
+    Date mDate;
 
+    static Handler handler2;
+    list_item my_list_item;
     public static final String BT_PREFERENCES = "BtPrefs";
     public static final String BP_PREFERENCES_PAIRED_DEVICE = "SELECTED_DEVICE"; // String
     BluetoothAdapter mBluetoothAdapter;
@@ -54,120 +56,32 @@ public class ControlArduino extends AppCompatActivity {
     int counter;
     volatile boolean stopWorker;
 
-    Button openButton;
-    Button closeButton;
-    Button sendButton;
     TextView info_textview;
-    EditText myTextbox;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.control_arduino);
-        //이전 화면에서 선택하고 저장한  블루투스 이름 찾기
-       SharedPreferences mPairedSettings;
-        mPairedSettings = getSharedPreferences(BT_PREFERENCES, Context.MODE_PRIVATE);
-        if (!mPairedSettings.contains(BP_PREFERENCES_PAIRED_DEVICE)) {
-            // 선택하지 않았다면  종료 한다.
-            // 사실 선택하지 않으면 이 화면으로 오지 않는다
-        }
-        devicename = mPairedSettings.getString(BP_PREFERENCES_PAIRED_DEVICE, "");
-        info_textview = (TextView) findViewById(R.id.textview_info);
-        //openButton = (Button)findViewById(R.id.open);
-        closeButton = (Button)findViewById(R.id.close);
-        sendButton = (Button)findViewById(R.id.send);
-        myTextbox = (EditText)findViewById(R.id.EditText_bt_data);
-        try
-        {
-            findBT();
-            openBT();
-            //연결후 연결 해제 버튼은 enable , 연결 버튼은 disable
-            //openButton.setEnabled(false);
-            //closeButton.setEnabled(true);
-        }
-        catch (IOException ex) {
-        }
-
-        //openButton.setFocusableInTouchMode(true);
-        //openButton.requestFocus();
-        //Open BT Button
-        /*openButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                try
-                {
-                    findBT();
-                    openBT();
-
-                    //연결후 연결 해제 버튼은 enable , 연결 버튼은 disable
-                    openButton.setEnabled(false);
-                    closeButton.setEnabled(true);
-
-                }
-                catch (IOException ex) {
-                }
-            }
-        });*/
-        //Close BT button
-        closeButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                try
-                {
-                    closeBT();
-//                    openButton.setEnabled(true);
- //                   closeButton.setEnabled(false);
-
-                }
-                catch (IOException ex) {
-
-                }
-            }
-        });
-        //Send Button
-        sendButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                try
-                {
-                    sendData();
-                }
-                catch (IOException ex) { }
-            }
-        });
-    }
-    void sendData() throws IOException
+    void sendData(int code) throws IOException
     {///////////////////////////////////////////////////////
         OutputStreamWriter writer = new OutputStreamWriter(mmSocket.getOutputStream());
-        writer.write("Hello World!!!!!!!!!\r\n");
-        writer.flush();
-        ///////////////////////////////////////////////////
-
-        /*
-        putString msg = myTextbox.getText().toString();
-        msg = msg.trim();
-        msg += "\n";
-        mmOutStream.write(msg.getBytes());*/
-
-        //info_textview.setText("Data Sent");
+        String msg = String.format("%d",code);
+        mmOutputStream.write(msg.getBytes());
     }
+
+    public String getDevicename() {
+        return devicename;
+    }
+
+    public void setDevicename(String devicename) {
+        this.devicename = devicename;
+    }
+
     // 페어링된 기기중에서 사용자가 선택한 블루투스를 실제로 찾는다.
     void findBT()
     {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if(!mBluetoothAdapter.isEnabled())
-        {
-            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBluetooth, 0);
-        }
-
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0)
         {
+
             for(BluetoothDevice device : pairedDevices)
             {
                 if(device.getName().equals(devicename))
@@ -183,6 +97,7 @@ public class ControlArduino extends AppCompatActivity {
     //찾은 블루투스를 안드로이드 폰과 연결한다
     void openBT() throws IOException
     {
+        StrictMode.enableDefaults();
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
         mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
         mmSocket.connect();
@@ -227,6 +142,12 @@ public class ControlArduino extends AppCompatActivity {
         is_connected = false;
     }
 
+    private String getTime(){
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        return mFormat.format(mDate);
+    }
+
     void beginListenForData()
     {
         final Handler handler = new Handler();
@@ -269,15 +190,15 @@ public class ControlArduino extends AppCompatActivity {
                                     {
                                         public void run()
                                         {
+                                            if(data.equals("FIRE\r"))
+                                            {
+                                                my_list_item=new list_item(getTime(),"아두이노 시스템에서 화재가 감지되었습니다. 대피하여 주시기 바랍니다",
+                                                        "null","null","null");
 
-                                            info_textview.setText(data);
-
-                                            String tmp2 = (String)data;
-
-
-                                            String tmp = (String)info_textview.getText();
-
-                                            info_textview.setText(tmp2);
+                                                Message msg=handler2.obtainMessage();
+                                                msg.obj=my_list_item;
+                                                handler2.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
+                                            }
 
                                         }
                                     });
@@ -306,6 +227,15 @@ public class ControlArduino extends AppCompatActivity {
         workerThread.start();
     }
 
+    public static void setHandler(Handler handler){
+        handler2=handler;
+    }
 
 
+    public static synchronized GlobalAduino getInstance(){
+        if(null == instance){
+            instance = new GlobalAduino();
+        }
+        return instance;
+    }
 }

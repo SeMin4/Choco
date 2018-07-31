@@ -1,10 +1,15 @@
 <resources>
-    <string name="app_name">MyAPP1</string>
+    <string name="app_name">BeEyes</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">BeEyes</string>
+    <string name="nav_header_subtitle">ohsemin4@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name= "str_done">완료</string>
+    <string name="str_done">완료</string>
+
+    <string-array name="shopping_item">
+        <item>위치 권한</item>
+        <item>카메라 권한</item>
+    </string-array>
 </resources>
