@@ -64,6 +64,7 @@ import java.util.List;
 
 
 public class Setting extends AppCompatActivity {
+
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
     long mNow;
     Date mDate;

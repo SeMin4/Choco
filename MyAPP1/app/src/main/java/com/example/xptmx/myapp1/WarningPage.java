@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,22 +22,35 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Locale;
 import java.util.concurrent.ExecutorCompletionService;
 
 import static android.speech.tts.TextToSpeech.ERROR;
 
 public class WarningPage extends AppCompatActivity implements SensorEventListener {
-    private GpsInfo mGpsInfo;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference("users");
-    private CustomFirebaseInstanceIdService customFirebaseInstanceIdService;
-    private userinfo info;
-
-
+    GpsInfo mGpsInfo;
+    CustomFirebaseMessagingService myMessagingService ;
+    public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    public DatabaseReference databaseReference = firebaseDatabase.getReference("users");
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public userinfo info = new userinfo();
+    public int count = 0;
+    public String getid;
+    public double secondlatitude;
+    public CustomFirebaseMessagingService messagingService;
+    public double secondlongitude;
 
     Boolean check = false;
 
@@ -58,7 +72,10 @@ public class WarningPage extends AppCompatActivity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warning_page);
-
+        mGpsInfo = new GpsInfo(WarningPage.this);
+        info.fcmToken = CustomFirebaseInstanceIdService.refreshedToken;
+        info.latitude = mGpsInfo.getLatitude();
+        info.longitude = mGpsInfo.getLongitude();
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl_sensor);
 
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
@@ -171,7 +188,10 @@ public class WarningPage extends AppCompatActivity implements SensorEventListene
                         sos.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
+                                sendPostToFCM(info);
+                                UtilFlash.flash_off();
                                 dialog.dismiss();
+
                             }
                         });
                         check = true;
@@ -204,5 +224,79 @@ public class WarningPage extends AppCompatActivity implements SensorEventListene
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+    public void sendPostToFCM(final userinfo token) {
+        databaseReference.child("gps_info")
+                .addValueEventListener(infoListener);
+    }
+    ValueEventListener infoListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                if (count % 3 == 0) {
+                    getid = (String) snapshot.getValue();
+                } else if (count % 3 == 1) {
+                    secondlatitude = (double) snapshot.getValue();
+                } else if (count % 3 == 2) {
+                    secondlongitude = (double)snapshot.getValue();
+                    if (distance_in_meter(info.getLatitude(), info.getLongitude(), secondlatitude, secondlongitude) < 2) {
+                        try {
+                            // FMC 메시지 생성 start
+                            JSONObject root = new JSONObject();
+                            JSONObject notification = new JSONObject();
+                            notification.put("body", "warnig");
+                            notification.put("title", getString(R.string.app_name));
+                            notification.put("tag",secondlatitude+"&"+secondlongitude);
+                            root.put("notification", notification);
+                            root.put("to", getid);
+
+
+                            // FMC 메시지 생성 end
+
+                            URL Url = new URL(SecondLayout.FCM_MESSAGE_URL);
+                            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+                            conn.setRequestMethod("POST");
+                            conn.setDoOutput(true);
+                            conn.setDoInput(true);
+                            conn.addRequestProperty("Authorization", "key=" + SecondLayout.SERVER_KEY);
+                            conn.setRequestProperty("Accept", "application/json");
+                            conn.setRequestProperty("Content-type", "application/json");
+                            OutputStream os = conn.getOutputStream();
+                            os.write(root.toString().getBytes("utf-8"));
+                            os.flush();
+                            conn.getResponseCode();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                count++;
+
+
+
+
+
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
+
+
+
+    public double distance_in_meter(double cur_latitude, double cur_longitude, double serv_latitude, double serv_longitude) {
+        cur_latitude *=111;
+        cur_longitude *= 111;
+        serv_latitude *= 111;
+        serv_longitude *= 111;
+        double dLat = (cur_latitude - serv_latitude) ;
+        double dLon = (cur_longitude - serv_longitude);
+        double d = Math.sqrt(dLat*dLat + dLon*dLon);
+        return d;
     }
 }

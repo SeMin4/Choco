@@ -58,17 +58,10 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         //remoteMessage
         showNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
-        System.out.println("누구한테 왓니"+remoteMessage.getNotification().getTag());
         remoteuser = remoteMessage.getNotification().getTag();
         int idx = remoteuser.indexOf("&");
         langitude = remoteuser.substring(0,idx);
         longitude = remoteuser.substring(idx+1);
-        System.out.println("드디어 나오냐 나와라"+langitude+longitude);
-
-
-
-
-
         //Map<String, String> pushDataMap = remoteMessage.getData();
         //sendNotification(pushDataMap);
     }
@@ -93,7 +86,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Warning")
-                .setContentText("주변에 화재 발생")
+                .setContentText("주변에 상황 발생")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

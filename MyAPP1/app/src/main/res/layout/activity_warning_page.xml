@@ -28,19 +28,7 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/jaenan_title" />
 
-    <com.nhn.android.maps.NMapView
 
-        android:id="@+id/nmap_two"
-        android:layout_width="280dp"
-        android:layout_height="130dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="170dp"
-        android:layout_weight="10"
-        android:background="#ffffff"
-        android:scaleType="fitCenter">
-
-    </com.nhn.android.maps.NMapView>
     <TextView
         android:id="@+id/textView_warning"
         android:layout_width="280dp"
