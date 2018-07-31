@@ -51,6 +51,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -62,6 +64,10 @@ import java.util.List;
 
 
 public class Setting extends AppCompatActivity {
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+    long mNow;
+    Date mDate;
+
     ListView bluetoothList = null;
     public static final String BT_PREFERENCES = "BtPrefs";
     public static final String BP_PREFERENCES_PAIRED_DEVICE = "SELECTED_DEVICE"; // String
@@ -179,13 +185,21 @@ public class Setting extends AppCompatActivity {
         simulbotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyGlobals.getInstance().makeRecentData();
+                my_list_item=new list_item(getTime(),"부산광역시 동구 남쪽 6KM 지역 규모 5.5 지진발생/여진 등 안전에 주의 바랍니다.",
+                        "null","null","null");
+
+                Message msg=myHandler.obtainMessage();
+                msg.obj=my_list_item;
+                myHandler.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
+
+
+                /*MyGlobals.getInstance().makeRecentData();
                 my_list_item=MyGlobals.getInstance().getRecent_list_item();
 
                 Message msg=myHandler.obtainMessage();
                 msg.obj=my_list_item;
                 myHandler.sendMessage(msg);//쓰레드에 있는 핸들러에게 메세지를 보냄
-                int code=MyGlobals.getInstance().makeCode(my_list_item.getContent());
+                int code=MyGlobals.getInstance().makeCode(my_list_item.getContent());*/
             }
         });
 
@@ -223,6 +237,12 @@ public class Setting extends AppCompatActivity {
 
 
     }
+    private String getTime(){
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        return mFormat.format(mDate);
+    }
+
 
     protected void listclick(String[] bluetoothdevice , int position, String strText){
         SharedPreferences mPairedSettings;

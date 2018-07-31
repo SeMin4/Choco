@@ -1,20 +1,6 @@
 package com.example.xptmx.myapp1;
 
-/*
- * Copyright 2016 NAVER Corp.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -33,11 +19,7 @@ import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-/**
- * Wrapper class to provider resources on map view.
- *
- * @author kyjkim
- */
+
 public class NMapViewerResourceProvider extends NMapResourceProvider implements
         NMapCalloutCustomOldOverlay.ResourceProvider {
     private static final String LOG_TAG = "NMapViewerResourceProvㄷ";
@@ -66,13 +48,6 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
         mTextPaint.setAntiAlias(true);
     }
 
-    /**
-     * Get drawable for markerId at focused state
-     *
-     * @param markerId unique id for POI or Number icons.
-     * @param focused true for focused state, false otherwise.
-     * @return
-     */
     public Drawable getDrawable(int markerId, boolean focused, NMapOverlayItem item) {
         Drawable marker = null;
 

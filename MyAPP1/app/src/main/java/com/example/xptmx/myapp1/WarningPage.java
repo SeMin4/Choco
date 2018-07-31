@@ -166,18 +166,11 @@ public class WarningPage extends AppCompatActivity implements SensorEventListene
                                 WarningPage.this);
 
                         sos.setTitle("도움 요청하기");
-                        sos.setMessage("도움을 요청하시겠습니까?");
+                        sos.setMessage("도움 요청이 되었습니다.");
 
                         sos.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
-                                dialog.dismiss();
-                            }
-                        });
-                        sos.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-
                                 dialog.dismiss();
                             }
                         });

@@ -31,11 +31,7 @@ import com.nhn.android.maps.NMapView;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-/**
- * Customized callout overlay.
- *
- * @author kyjkim
- */
+
 public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
     private static final String LOG_TAG = "NMapCalloutCustomOver";
     private static final boolean DEBUG = false;
@@ -85,9 +81,7 @@ public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
     private final String mTailText;
     private float mTailTextWidth;
 
-    /**
-     * Resource provider should implement this interface
-     */
+
     public static interface ResourceProvider {
 
         public Drawable getCalloutBackground(NMapOverlayItem item);
