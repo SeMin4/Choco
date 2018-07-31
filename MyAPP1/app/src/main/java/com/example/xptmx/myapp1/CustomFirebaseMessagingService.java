@@ -13,17 +13,39 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
+    Intent customintent ;
     NotificationManager notificationManager;
+    public int count = 0;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference("users");
+    String remoteuser;
+    String getid;
+    public static String langitude;
+    public static String longitude;
+
     /**
      * Called when message is received.
      *
@@ -32,15 +54,18 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
+
+        //remoteMessage
         showNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
-        //String To = remoteMessage.getData().get("getid");
-      //  Toast.makeText(this, To, Toast.LENGTH_LONG).show();
-        if(remoteMessage.getData().size() >0){
-            showNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
-        }
-        if(remoteMessage.getData().get("body")!= null){
-            showNotification(remoteMessage.getData().get("body"), remoteMessage.getData().get("message"));
-        }
+        System.out.println("누구한테 왓니"+remoteMessage.getNotification().getTag());
+        remoteuser = remoteMessage.getNotification().getTag();
+        int idx = remoteuser.indexOf("&");
+        langitude = remoteuser.substring(0,idx);
+        longitude = remoteuser.substring(idx+1);
+        System.out.println("드디어 나오냐 나와라"+langitude+longitude);
+
+
 
 
 
@@ -48,7 +73,7 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
         //sendNotification(pushDataMap);
     }
     private void showNotification(String title, String message) {
-        Intent intent = new Intent(this, WarningPage.class);
+        Intent intent = new Intent(this, Warningpage2.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(CustomFirebaseMessagingService.this, 1, intent,
                 PendingIntent.FLAG_ONE_SHOT);

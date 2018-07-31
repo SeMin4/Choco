@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 import java.util.concurrent.ExecutorCompletionService;
@@ -28,6 +30,13 @@ import java.util.concurrent.ExecutorCompletionService;
 import static android.speech.tts.TextToSpeech.ERROR;
 
 public class WarningPage extends AppCompatActivity implements SensorEventListener {
+    private GpsInfo mGpsInfo;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference("users");
+    private CustomFirebaseInstanceIdService customFirebaseInstanceIdService;
+    private userinfo info;
+
+
 
     Boolean check = false;
 

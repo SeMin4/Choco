@@ -8,7 +8,7 @@
     tools:context=".WarningPage">
 
     <ImageView
-        android:id="@+id/gif_image"
+        android:id="@+id/gif_image2"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginLeft="10dp"
@@ -16,7 +16,7 @@
         android:adjustViewBounds="false" />
 
     <ImageView
-        android:id="@+id/jaenan_title"
+        android:id="@+id/jaenan_title2"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
@@ -32,26 +32,16 @@
 
         android:id="@+id/nmap_two"
         android:layout_width="280dp"
-        android:layout_height="130dp"
+        android:layout_height="340dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="47dp"
         android:layout_weight="10"
         android:background="#ffffff"
         android:scaleType="fitCenter">
 
     </com.nhn.android.maps.NMapView>
-    <TextView
-        android:id="@+id/textView_warning"
-        android:layout_width="280dp"
-        android:layout_height="130dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="170dp"
-        android:layout_weight="10"
-        android:background="#ffffff"
-        android:scaleType="fitCenter"
-        android:textSize="16sp" />
+
 
     <LinearLayout
         android:layout_width="384dp"
@@ -62,7 +52,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/homegobutton"
+            android:id="@+id/homegobutton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -80,7 +70,7 @@
             app:srcCompat="@drawable/warn_homebutton" />
 
         <ImageButton
-            android:id="@+id/lightbutton"
+            android:id="@+id/lightbutton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -94,7 +84,7 @@
             app:srcCompat="@drawable/warn_lightbutton" />
 
         <ImageButton
-            android:id="@+id/shelfindbutton"
+            android:id="@+id/shelfindbutton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

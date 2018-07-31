@@ -51,6 +51,7 @@
         <activity android:name=".SecondLayout" />
         <activity android:name=".WarningPage" />
         <activity android:name=".shake"/>
+        <activity android:name=".Warningpage2"></activity>
         <service android:name=".MyService" />
         <service
             android:name=".CustomFirebaseMessagingService">

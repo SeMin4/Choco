@@ -47,9 +47,14 @@ public class SecondLayout extends AppCompatActivity{
     public int count = 0;
     public String getid;
     public double secondlatitude;
+    public CustomFirebaseMessagingService messagingService;
     public double secondlongitude;
-    public void setMyMessagingService(CustomFirebaseMessagingService myMessagingService) {
+    public void setMyMessagingService(CustomFirebaseMessagingService messagingService) {
         this.myMessagingService = myMessagingService;
+    }
+
+    public CustomFirebaseMessagingService getMyMessagingService() {
+        return myMessagingService;
     }
 
     @Override
@@ -79,13 +84,10 @@ public class SecondLayout extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String devicedid = Sever_trans.getInstance().getDevice_id();
-                       // databaseReference.child("gps_info").once("value", function(data){Log.d('1번 :' , data.val()) });
-                        sendPostToFCM(info);
-                       // Message msg=handler.obtainMessage();
-                        // msg.obj=devicedid;
-                       // handler.sendMessage(msg);
-                      //  Log.v(TAG,"Yes Btn Click");
-                        dialog.dismiss();     //닫기
+                        sendPostToFCM(info);                    ;
+
+
+                        dialog.dismiss();
                         // Event
                     }
                 });
@@ -116,6 +118,7 @@ public class SecondLayout extends AppCompatActivity{
                 ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        sendPostToFCM(info);
 
                         //  Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
@@ -148,6 +151,7 @@ public class SecondLayout extends AppCompatActivity{
                 ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        sendPostToFCM(info);
                         //  Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
                         // Event
@@ -179,6 +183,7 @@ public class SecondLayout extends AppCompatActivity{
                 ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        sendPostToFCM(info);
                         //  Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
                         // Event
@@ -210,6 +215,7 @@ public class SecondLayout extends AppCompatActivity{
                 ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        sendPostToFCM(info);
                         //  Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
                         // Event
@@ -241,6 +247,7 @@ public class SecondLayout extends AppCompatActivity{
                 ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        sendPostToFCM(info);
                         //  Log.v(TAG,"Yes Btn Click");
                         dialog.dismiss();     //닫기
                         // Event
@@ -341,8 +348,7 @@ public class SecondLayout extends AppCompatActivity{
     }
 
     public void sendPostToFCM(final userinfo token) {
-            databaseReference
-                    .child("gps_info")
+            databaseReference.child("gps_info")
                     .addValueEventListener(infoListener);
     }
         ValueEventListener infoListener = new ValueEventListener() {
@@ -354,7 +360,7 @@ public class SecondLayout extends AppCompatActivity{
                     } else if (count % 3 == 1) {
                         secondlatitude = (double) snapshot.getValue();
                     } else if (count % 3 == 2) {
-                        secondlongitude = (double) snapshot.getValue();
+                        secondlongitude = (double)snapshot.getValue();
                         if (distance_in_meter(info.getLatitude(), info.getLongitude(), secondlatitude, secondlongitude) < 2) {
                             try {
                                 // FMC 메시지 생성 start
@@ -362,8 +368,11 @@ public class SecondLayout extends AppCompatActivity{
                                 JSONObject notification = new JSONObject();
                                 notification.put("body", "warnig");
                                 notification.put("title", getString(R.string.app_name));
+                                notification.put("tag",secondlatitude+"&"+secondlongitude);
                                 root.put("notification", notification);
                                 root.put("to", getid);
+
+
                                 // FMC 메시지 생성 end
 
                                 URL Url = new URL(FCM_MESSAGE_URL);
@@ -382,9 +391,12 @@ public class SecondLayout extends AppCompatActivity{
                                 e.printStackTrace();
                             }
                         }
-
-                    }
+                     }
                     count++;
+
+
+
+
 
 
                 }

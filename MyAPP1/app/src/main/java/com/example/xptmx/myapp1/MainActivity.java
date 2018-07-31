@@ -81,12 +81,14 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.BLUETOOTH}, 1);
         mGpsInfo = new GpsInfo(MainActivity.this);
         customFirebaseInstanceIdService = new CustomFirebaseInstanceIdService();
-        customFirebaseInstanceIdService.onTokenRefresh();
         info = new userinfo();
+        customFirebaseInstanceIdService.onTokenRefresh();
         info.fcmToken = CustomFirebaseInstanceIdService.refreshedToken;
         info.latitude = mGpsInfo.getLatitude();
         info.longitude = mGpsInfo.getLongitude();
-        databaseReference.child("gps_info").setValue(info);
+        databaseReference.child("gps_info").push().setValue(info.fcmToken);
+        databaseReference.child("gps_info").push().setValue(info.latitude);
+        databaseReference.child("gps_info").push().setValue(info.longitude);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ImageButton disaterButton = (ImageButton)findViewById(R.id.disaster_message);
@@ -187,8 +189,8 @@ public class MainActivity extends AppCompatActivity
         startService(intent);
         Sever_trans.getInstance().setUserlongitude(mGpsInfo.getLongitude());
         Sever_trans.getInstance().setUserlatitude(mGpsInfo.getLatitude());
-        mseverthread = new Severthread(mGpsInfo.getLongitude(),mGpsInfo.getLatitude());
-        mseverthread.start();
+       // mseverthread = new Severthread(mGpsInfo.getLongitude(),mGpsInfo.getLatitude());
+       // mseverthread.start();
         //HttpPostData();
 
 
@@ -281,6 +283,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 
